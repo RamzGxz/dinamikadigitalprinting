@@ -29,14 +29,14 @@ const Footer = () => {
             <InstagramLogo weight="bold" color="#f9f7f7" size={24} className="cursor-pointer"/>
             <TwitterLogo weight="bold" color="#f9f7f7" size={24} className="cursor-pointer"/>
           </div>
-          <div className="flex gap-2 items-center hover:underline cursor-pointer">
+          <Link href="tel:+6281331473856" className="flex gap-2 items-center hover:underline cursor-pointer">
             <Phone weight="bold" color="#f9f7f7"/>
             <p className="text-sm">+6281331473856</p>
-          </div>
-          <div className="flex gap-2 items-center  hover:underline cursor-pointer">
+          </Link>
+          <Link href="tel:+62895621048269" className="flex gap-2 items-center  hover:underline cursor-pointer">
             <Phone weight="bold" color="#f9f7f7"/>
             <p className="text-sm">+62895621048269</p>
-          </div>
+          </Link>
         </div>
 
       </div>

@@ -1,4 +1,4 @@
-import { FacebookLogo, Heart, InstagramLogo, TwitterLogo } from "@phosphor-icons/react"
+import { FacebookLogo, Heart, InstagramLogo, Phone, TwitterLogo } from "@phosphor-icons/react"
 import Link from "next/link"
 
 const Footer = () => {
@@ -25,9 +25,17 @@ const Footer = () => {
         <div className="flex flex-col justify-between gap-3">
           <p className="text-sm">Follow Us</p>
           <div className="flex gap-2 items-center">
-            <FacebookLogo weight="bold" color="#f9f7f7" size={24}/>
-            <InstagramLogo weight="bold" color="#f9f7f7" size={24}/>
-            <TwitterLogo weight="bold" color="#f9f7f7" size={24}/>
+            <FacebookLogo weight="bold" color="#f9f7f7" size={24} className="cursor-pointer"/>
+            <InstagramLogo weight="bold" color="#f9f7f7" size={24} className="cursor-pointer"/>
+            <TwitterLogo weight="bold" color="#f9f7f7" size={24} className="cursor-pointer"/>
+          </div>
+          <div className="flex gap-2 items-center hover:underline cursor-pointer">
+            <Phone weight="bold" color="#f9f7f7"/>
+            <p className="text-sm">+6281331473856</p>
+          </div>
+          <div className="flex gap-2 items-center  hover:underline cursor-pointer">
+            <Phone weight="bold" color="#f9f7f7"/>
+            <p className="text-sm">+62895621048269</p>
           </div>
         </div>
 

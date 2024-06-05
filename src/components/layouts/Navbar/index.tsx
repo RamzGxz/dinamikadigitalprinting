@@ -8,8 +8,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full py-5 border-b fixed top-0 lg:px-0 px-6 bg-background z-50">
-        <div className="max-w-screen-xl mx-auto items-center flex justify-between w-full">
+      <nav className="w-full py-4 border-b fixed top-0 lg:px-0 px-6 bg-background z-50">
+        <div className="xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm mx-auto items-center flex justify-between w-full">
           <Link href={'/#'} className="flex items-center gap-2">
             <Heart color="#1b1b1b" size={32} weight="fill" />
             <p className="font-bold">Dinamika</p>

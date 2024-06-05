@@ -11,13 +11,13 @@ const Footer = () => {
             <Heart color="#f9f7f7" size={32} weight="fill" />
             <p className="font-bold text-xl">Dinamika</p>
           </Link>
-          <p className="text-sm font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. <br /> Numquam, est.</p>
+          <p className="text-sm font-light">Dapatkan solusi printing terlengkap dan praktis dengan Digital Printing kami. <br /> Dari desain hingga pengiriman, semua kami urus.</p>
         </div>
 
         <div className="flex flex-col justify-between gap-3">
-          <p className="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed,<br /> consectetur?</p>
+          <p className="text-sm">Hubungi kami hari ini untuk mempelajari lebih lanjut tentang <br /> bagaimana Anda dapat membantu.</p>
           <div className="flex gap-2 items-center bg-background p-2 rounded-md justify-between">
-            <input type="text" className="bg-transparent text-sm w-full text-textColor focus:outline-none" placeholder="your email" />
+            <input type="text" className="bg-transparent text-sm w-full text-textColor focus:outline-none" placeholder="Email anda" />
             <button className="rounded-md bg-primary text-sm p-1 px-2 border border-primary hover:bg-background hover:text-textColor font-medium ">Subscribe</button>
           </div>
         </div>

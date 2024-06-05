@@ -13,7 +13,7 @@ export default function Home() {
       <Head>
         <title>Dinamika Digital Printing</title>
       </Head>
-      <main className={`${inter.className} max-w-screen-xl mx-auto w-full gap-16 lg:px-0 px-6`}>
+      <main className={`${inter.className} xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm mx-auto w-full gap-16 lg:px-0 px-6`}>
         <HeroSection/>
         <StorySection/>
         <ServiceSection/>

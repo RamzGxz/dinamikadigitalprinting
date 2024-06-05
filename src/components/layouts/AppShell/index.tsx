@@ -17,7 +17,7 @@ const AppShell = ({children}: AppShellProp) =>{
     <div>
       {!path.includes(pathname) && <Navbar/>}
       {children}
-      <Footer/>
+      {!path.includes(pathname) && <Footer/>}
     </div>
   )
 }

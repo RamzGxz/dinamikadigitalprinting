@@ -10,7 +10,6 @@ type serviceCardType = {
 
 
 const ServiceCard = ({ icon, title, description }: serviceCardType) => {
-  console.log(description.split(' '))
   return (
     <div className="w-full border-2 border-primary rounded-md p-5 flex flex-col gap-3 items-center">
       {icon}

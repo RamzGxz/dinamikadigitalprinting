@@ -1,4 +1,5 @@
 import { ArrowSquareUpRight, Heart, List, X } from "@phosphor-icons/react"
+// import {} from "next-auth/react"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -27,6 +28,7 @@ const Navbar = () => {
             </button>
 
           </div>
+          {/* mobile navbar */}
           <div className={`absolute top-14 left-0 px-6 py-6 z-50 w-full transition-all duration-300 ease-in-out ${menuView ? 'h-screen backdrop-blur-md' : 'h-0'}`}>
             <ul className={`${menuView ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 ease-in-out flex flex-col gap-3`}>
               {menuView && (
@@ -61,6 +63,7 @@ const Navbar = () => {
             </ul>
           </div>
 
+          {/* desktop navbar */}
           <div className="lg:flex hidden items-center gap-5">
             <Link href={'/'} className="font-medium hover:text-accent transition-all duration-300 ">Home</Link>
             <Link href={'/#story'} className="font-medium hover:text-accent transition-all duration-300">Story</Link>

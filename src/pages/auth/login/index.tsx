@@ -15,10 +15,9 @@ const Login = () => {
       </Head>
       <main className="w-full bg-background text-textColor flex justify-center items-center h-screen">
         <div className="w-full max-w-screen-lg mx-auto lg:shadow-xl rounded-lg flex justify-between items-start">
-          <div className="lg:w-1/2 w-full flex items-center justify-between flex-col gap-10 lg:p-16 p-10 lg:ms-10">
-            <div className=""></div>
+          <div className="lg:w-1/2 w-full flex items-center justify-between flex-col gap-10 lg:p-10 p-10 lg:ms-10">
             <div className="flex w-full flex-col gap-2">
-              <h1 className="text-5xl w-full text-start leading-snug">Hello, <span className="text-accent font-black">Welcome</span></h1>
+              <h1 className="text-5xl w-full text-center leading-snug">Hello, <span className="text-accent font-black">Welcome</span></h1>
               <p className="text-center">Silahkan login menggunakan account anda</p>
             </div>
             <form className="w-full flex-col flex gap-5 items-center" onSubmit={(e) => e.preventDefault()}>
@@ -29,7 +28,7 @@ const Login = () => {
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <Key size={32} color="#1b1b1b" weight="fill" />
                 <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Password" />
-                <button onClick={() => setPassView(!passView)}>
+                <button onClick={() => setPassView(!passView)} id="viewPassword" name="view password">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
                   ) : (
@@ -53,7 +52,7 @@ const Login = () => {
                 <div className="bg-primary w-full h-[1px]"></div>
               </div>
 
-              <button className="p-2 w-full border-2 bg-primary text-background hover:bg-background hover:text-textColor border-primary rounded-full flex justify-center items-center gap-5 transition-all duration-300" onMouseOver={() => setHoverLogo(true)} onMouseOut={() => setHoverLogo(false)}>
+              <button className="p-2 w-full border-2 bg-primary text-background hover:bg-background hover:text-textColor border-primary rounded-full flex justify-center items-center gap-5 transition-all duration-300" onMouseOver={() => setHoverLogo(true)} onMouseOut={() => setHoverLogo(false)} id="googleBtn" name="loginBtnGoogle">
                 <GoogleLogo weight="bold" size={32} color={hoverLogo ? '#1b1b1b' : "#f9f7f7"} />
                 <p className="font-semibold text-lg">Continue with Google</p>
               </button>

@@ -51,10 +51,10 @@ const Navbar = () => {
                   <li>
                     <div className="flex gap-3 flex-col w-full">
                       <Link href={'/auth/login'}>
-                        <button className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-transparent hover:text-textColor transition-all duration-300 border border-primary">Login</button>
+                        <button id="linkLogin" name="linkLogin" className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-transparent hover:text-textColor transition-all duration-300 border border-primary">Login</button>
                       </Link>
                       <Link href={'/auth/signup'}>
-                        <button className="px-3 py-1 rounded-md  text-primary font-medium border-primary border hover:bg-primary hover:text-background transition-all duration-300">Sign up</button>
+                        <button id="linkReg" name="linkReg" className="px-3 py-1 rounded-md  text-primary font-medium border-primary border hover:bg-primary hover:text-background transition-all duration-300">Sign up</button>
                       </Link>
                     </div>
                   </li>
@@ -74,10 +74,10 @@ const Navbar = () => {
             </Link>
             <div className="flex items-center gap-3">
               <Link href={'/auth/login'}>
-                <button className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-background hover:text-textColor transition-all duration-300 border border-primary">Login</button>
+                <button id="linkLogin" name="linkLogin" className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-background hover:text-textColor transition-all duration-300 border border-primary">Login</button>
               </Link>
               <Link href={'/auth/register'}>
-                <button className="px-3 py-1 rounded-md bg-background text-primary font-medium border-primary border hover:bg-primary hover:text-background transition-all duration-300">Sign up</button>
+                <button id="linkReg" name="linkReg" className="px-3 py-1 rounded-md bg-background text-primary font-medium border-primary border hover:bg-primary hover:text-background transition-all duration-300">Sign up</button>
               </Link>
             </div>
           </div>

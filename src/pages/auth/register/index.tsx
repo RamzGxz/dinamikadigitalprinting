@@ -32,7 +32,7 @@ const Register = () => {
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <Key size={32} color="#1b1b1b" weight="fill" />
                 <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Password" />
-                <button onClick={() => setPassView(!passView)}>
+                <button onClick={() => setPassView(!passView)} name="viewPassword" id="viewPassword">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
                   ) : (
@@ -43,7 +43,7 @@ const Register = () => {
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <Key size={32} color="#1b1b1b" weight="fill" />
                 <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Confirm Password" />
-                <button onClick={() => setPassView(!passView)}>
+                <button onClick={() => setPassView(!passView)} name="viewConfPassword" id="viewConfPassword">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
                   ) : (
@@ -61,7 +61,7 @@ const Register = () => {
                 <div className="bg-primary w-full h-[1px]"></div>
               </div>
 
-              <button className="p-2 w-full border-2 bg-primary text-background hover:bg-background hover:text-textColor border-primary rounded-full flex justify-center items-center gap-5 transition-all duration-300" onMouseOver={() => setHoverLogo(true)} onMouseOut={() => setHoverLogo(false)}>
+              <button className="p-2 w-full border-2 bg-primary text-background hover:bg-background hover:text-textColor border-primary rounded-full flex justify-center items-center gap-5 transition-all duration-300" onMouseOver={() => setHoverLogo(true)} onMouseOut={() => setHoverLogo(false)} id="regGoogle" name="registerBtn">
                 <GoogleLogo weight="bold" size={32} color={hoverLogo ? '#1b1b1b' : "#f9f7f7"} />
                 <p className="font-semibold text-lg">Register with Google</p>
               </button>

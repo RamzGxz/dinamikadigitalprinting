@@ -16,16 +16,16 @@ const HeroSection = () => {
             autoStart: true,
             loop: true
           }} /></span></h1>
-        <p className="">Dinamika Digital Printing menggunakan teknologi cetak digital terbaru untuk memastikan hasil cetak yang berkualitas tinggi, tahan lama, dan dengan warna yang cerah. Kami juga menawarkan harga yang kompetitif dan layanan yang ramah dan profesional.</p>
+        <p>Dinamika Digital Printing menggunakan teknologi cetak digital terbaru untuk memastikan hasil cetak yang berkualitas tinggi, tahan lama, dan dengan warna yang cerah. Kami juga menawarkan harga yang kompetitif dan layanan yang ramah dan profesional.</p>
         <div className="flex items-center lg:justify-start justify-center gap-5 w-full">
           <Link href={'/#story'}>
-            <button className="bg-primary border p-2 rounded-lg px-3 rounded-br-none border-primary text-background hover:bg-background hover:text-textColor transition-all duration-300 font-semibold">
+            <button name="ourStory" id="ourStory" className="bg-primary border p-2 rounded-lg px-3 rounded-br-none border-primary text-background hover:bg-background hover:text-textColor transition-all duration-300 font-semibold">
               Our Story
             </button>
           </Link>
           <Link href={'/#best-products'}>
-            <button className=" border p-2 rounded-lg px-3 rounded-br-none border-primary text-textColor hover:bg-primary hover:text-background transition-all duration-300 font-semibold">
-              Products
+            <button name="bestBtn" id="best" className=" border p-2 rounded-lg px-3 rounded-br-none border-primary text-textColor hover:bg-primary hover:text-background transition-all duration-300 font-semibold">
+              Best Products
             </button>
           </Link>
         </div>

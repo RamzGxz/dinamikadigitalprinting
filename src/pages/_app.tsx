@@ -2,6 +2,7 @@ import AppShell from '@/components/layouts/AppShell'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App(
   { Component,
@@ -11,6 +12,7 @@ export default function App(
     <SessionProvider session={session}>
       <AppShell>
         <Component {...pageProps} />
+        <Analytics />
       </AppShell>
     </SessionProvider>
   )

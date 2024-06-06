@@ -1,6 +1,7 @@
 import { EnvelopeSimple, Eye, EyeSlash, Key } from "@phosphor-icons/react"
 import Head from "next/head"
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 
 const Login = () => {
@@ -8,11 +9,11 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Dinamika Authentication</title>
+        <title>Dinamika auth service</title>
       </Head>
       <main className="w-full bg-background text-textColor flex justify-center items-center h-screen">
-        <div className="w-full max-w-screen-lg mx-auto shadow-xl rounded-lg flex justify-between items-start">
-          <div className="w-1/2 flex items-center justify-between flex-col gap-10 p-16 ms-10">
+        <div className="w-full max-w-screen-lg mx-auto lg:shadow-xl rounded-lg flex justify-between items-start">
+          <div className="lg:w-1/2 w-full flex items-center justify-between flex-col gap-10 lg:p-16 p-10 lg:ms-10">
             <div className="flex w-full flex-col gap-2">
               <h1 className="text-5xl w-full text-center font-black leading-snug">Welcome <span className="text-accent">Back Folks</span></h1>
               <p className="text-center">Silahkan login menggunakan account anda</p>
@@ -39,12 +40,13 @@ const Login = () => {
                   <input type="checkbox" className="flex justify-center" />
                   <p className="text-sm">Remember me</p>
                 </div>
+                <Link href={'/auth/forgot'} className="text-sm hover:underline">Lupa Password?</Link>
               </div>
             </form>
-
+            <div className="flex w-full"></div>
           </div>
 
-          <div className="w-1/2 flex justify-end">
+          <div className="w-1/2 lg:flex hidden justify-end">
             <Image src={'/bglogin.webp'} width={410} height={400} alt="login backgorund" fetchPriority="high" className="rounded-r-lg" />
           </div>
 

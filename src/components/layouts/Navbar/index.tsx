@@ -76,7 +76,7 @@ const Navbar = () => {
               <Link href={'/auth/login'}>
                 <button className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-background hover:text-textColor transition-all duration-300 border border-primary">Login</button>
               </Link>
-              <Link href={'/auth/signup'}>
+              <Link href={'/auth/register'}>
                 <button className="px-3 py-1 rounded-md bg-background text-primary font-medium border-primary border hover:bg-primary hover:text-background transition-all duration-300">Sign up</button>
               </Link>
             </div>

@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export default function middleware(req: NextRequest) {
-  const isLogin = true
-
+  const isLogin = false
   if (isLogin) {
     return NextResponse.next()
   } else {

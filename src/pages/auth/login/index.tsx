@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { FormEvent, useEffect, useRef, useState } from "react"
+import { toast } from "react-toastify"
 
 const Login = () => {
   const [passView, setPassView] = useState(false)
@@ -15,7 +16,8 @@ const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null)
   const passRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState('')
-  const { data: session, status } = useSession();
+  const { data } = useSession()
+  const { push } = useRouter()
 
   const [user, setUser] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -69,8 +71,13 @@ const Login = () => {
 
         if (result?.error) {
           setError(result.error)
+          toast.error('Login Failed!, Please check your crendentials!', { autoClose: 1500 })
         } else {
-          alert('login succesfull')
+          toast.success('Login Succesfull, you will be redirected to Home', { autoClose: 1500 })
+          setTimeout(()=>{
+            push('/')
+          }, 1800)
+
         }
       } catch (err) {
         setError('An unexpected error occurred. Please try again.')

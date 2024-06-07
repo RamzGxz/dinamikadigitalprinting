@@ -18,7 +18,7 @@ const Footer = () => {
           <p className="text-sm">Hubungi kami hari ini untuk mempelajari lebih lanjut tentang <br /> bagaimana Anda dapat membantu.</p>
           <div className="flex gap-2 items-center bg-background p-2 rounded-md justify-between">
             <input type="text" className="bg-transparent text-sm w-full text-textColor focus:outline-none" placeholder="Email anda" />
-            <button className="rounded-md bg-primary text-sm p-1 px-2 border border-primary hover:bg-background hover:text-textColor font-medium ">Subscribe</button>
+            <button id="subscribe" name="btnSubcribe" className="rounded-md bg-primary text-sm p-1 px-2 border border-primary hover:bg-background hover:text-textColor font-medium ">Subscribe</button>
           </div>
         </div>
 

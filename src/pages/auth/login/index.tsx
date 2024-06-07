@@ -58,7 +58,7 @@ const Login = () => {
               </button>
             </div>
 
-            <div className="flex justify-center items-center w-full text-sm">
+            <div className="flex justify-center items-center w-full lg:text-sm text-xs">
               Belum Punya Akun? klik&nbsp;<Link href={'/auth/register'} className="underline hover:font-black">disini</Link>&nbsp;untuk melakukan registrasi
             </div>
 

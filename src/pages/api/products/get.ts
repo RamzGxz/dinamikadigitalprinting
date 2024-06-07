@@ -1,4 +1,3 @@
-import retrieveData from "@/utils/db/service";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

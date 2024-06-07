@@ -20,12 +20,11 @@ const authOptions: NextAuthOptions = {
           email: string,
           password: string
         };
-
-        // Here you should verify the user's credentials with your database
+        
         const user: any = { id: 1, email: email, password: password };
 
         if (user) {
-          console.log(user);
+
           return user;
         } else {
           return null;
@@ -38,7 +37,6 @@ const authOptions: NextAuthOptions = {
       if (account?.provider === 'credentials' && user) {
         token.email = user.email;
       }
-      console.log(token, account, user);
       return token;
     },
     async session({ session, token }) {

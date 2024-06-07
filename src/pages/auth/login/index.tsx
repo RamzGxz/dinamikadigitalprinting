@@ -1,12 +1,86 @@
 import { EnvelopeSimple, Eye, EyeSlash, GoogleLogo, Key } from "@phosphor-icons/react"
+import { signIn, useSession } from "next-auth/react"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useRouter } from "next/router"
+import React, { FormEvent, useEffect, useRef, useState } from "react"
 
 const Login = () => {
   const [passView, setPassView] = useState(false)
   const [hoverLogo, setHoverLogo] = useState(false)
+  const [isRemember, setIsRemember] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passRef = useRef<HTMLInputElement>(null)
+  const [error, setError] = useState('')
+  const { data: session, status } = useSession();
+
+  const [user, setUser] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user')
+      return storedUser ? JSON.parse(storedUser) : null
+    }
+    return null
+  })
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user')
+      if (storedUser) {
+        setUser(JSON.parse(storedUser))
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (user && emailRef.current && passRef.current) {
+      emailRef.current.value = user.email
+      passRef.current.value = user.password
+    }
+  }, [user])
+
+  const handleChangeEmail = (e: FormEvent<HTMLInputElement>) => {
+    setEmail(e.currentTarget.value)
+  }
+
+  const handleChangePassword = (e: FormEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value)
+  }
+
+  const handleIsRemember = () => {
+    setIsRemember(!isRemember)
+  }
+
+  const handleLogin = async (e: FormEvent) => {
+    e.preventDefault()
+    const userData = { email, password }
+    try {
+      if (isRemember && email && password) {
+        localStorage.setItem('user', JSON.stringify(userData))
+      }
+      try {
+        const result = await signIn('credentials', {
+          redirect: false,
+          email,
+          password,
+        })
+
+        if (result?.error) {
+          setError(result.error)
+        } else {
+          alert('login succesfull')
+        }
+      } catch (err) {
+        setError('An unexpected error occurred. Please try again.')
+        console.error('Login error:', err)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <>
@@ -20,14 +94,14 @@ const Login = () => {
               <h1 className="text-5xl w-full text-center leading-snug">Hello, <span className="text-accent font-black">Welcome</span></h1>
               <p className="text-center">Silahkan login menggunakan account anda</p>
             </div>
-            <form className="w-full flex-col flex gap-5 items-center" onSubmit={(e) => e.preventDefault()}>
+            <form className="w-full flex-col flex gap-5 items-center" onSubmit={handleLogin}>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <EnvelopeSimple size={32} color="#1b1b1b" weight="fill" />
-                <input type="email" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Email" />
+                <input type="email" id="email" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Email" onChange={handleChangeEmail} ref={emailRef} />
               </div>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <Key size={32} color="#1b1b1b" weight="fill" />
-                <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Password" />
+                <input type={passView ? "text" : "password"} id="password" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Password" onChange={handleChangePassword} ref={passRef} />
                 <button onClick={() => setPassView(!passView)} id="viewPassword" name="view password">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
@@ -39,7 +113,7 @@ const Login = () => {
               <button className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary hover:bg-background hover:text-primary transition-all duration-200" type="submit">LOGIN</button>
               <div className="flex items-center w-full justify-between">
                 <div className="flex items-center gap-2">
-                  <input type="checkbox" className="flex justify-center" />
+                  <input type="checkbox" className="flex justify-center" onChange={handleIsRemember} />
                   <p className="text-sm">Remember me</p>
                 </div>
                 <Link href={'/auth/forgot'} className="text-sm hover:underline">Lupa Password?</Link>
@@ -59,7 +133,7 @@ const Login = () => {
             </div>
 
             <div className="flex justify-center items-center w-full lg:text-sm text-xs">
-              Belum Punya Akun? klik&nbsp;<Link href={'/auth/register'} className="underline hover:font-black">disini</Link>&nbsp;untuk melakukan registrasi
+              Belum Punya Akun? klik&nbsp;<Link href={'/auth/register'} className="underline hover:font-black">disini</Link>&nbsp;puntuk melakukan registrasi
             </div>
 
           </div>

@@ -1,8 +1,9 @@
-import { User } from "@/components/types/userType";
-import retrieveData from "@/utils/db/service";
+import { login, loginWithGoogle, retrieveData } from "@/utils/db/service";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { compare } from 'bcrypt'
+import GoogleProvider from 'next-auth/providers/google'
 
 const authOptions: NextAuthOptions = {
   session: {
@@ -22,36 +23,62 @@ const authOptions: NextAuthOptions = {
           email: string,
           password: string
         }
-        const users: User[] = await retrieveData('user');
 
-        const user = users.find(user => user.email === email && user.password === password)
+        const user: any = await login({ email })
         if (user) {
-          const { password, ...userWithoutPassword } = user;
-          return userWithoutPassword
-        } else {
-          return null;
+          const conf = await compare(password, user.password)
+          if (conf) {
+            return user
+          }
         }
+
       }
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
     })
   ],
   callbacks: {
-    jwt({ token, account, user }) {
-      if (account?.provider === 'credentials' && user) {
+    async jwt({ token, account, user }: any) {
+      if (account?.provider === 'credentials') {
         token.id = user.id;
         token.email = user.email;
         token.birthday = user.birthday;
         token.username = user.username;
         token.phone = user.phone;
       }
+
+      if (account?.provider === 'google') {
+        const data = {
+          username: user.name,
+          email: user.email,
+          image: user.image,
+          type: 'google',
+          phone: "",
+          birthday: "",
+          password: ""
+        }
+
+        await loginWithGoogle(data, (result: any) => {
+          if (result.status) {
+            token.email = result.data.email;
+            token.birthday = result.data.birthday;
+            token.username = result.data.username;
+            token.phone = result.data.phone;
+          }
+        })
+
+      }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       if (token) {
         session.user = session.user || {};
         session.user.id = token.id;
         session.user.email = token.email;
         session.user.birthday = token.birthday;
-        session.user.username = token.username;
+        session.user.username = token.username || token.name;
         session.user.phone = token.phone;
       }
       return session;

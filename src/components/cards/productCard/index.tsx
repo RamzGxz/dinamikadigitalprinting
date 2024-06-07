@@ -1,4 +1,4 @@
-import { productTypes } from "@/components/types/productTypes"
+import { productTypes } from "@/types/productTypes"
 import Image from "next/image"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"

@@ -1,11 +1,12 @@
 import { EnvelopeSimple, Eye, EyeSlash, GoogleLogo, Key } from "@phosphor-icons/react"
-import { signIn, useSession } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { FormEvent, useEffect, useRef, useState } from "react"
 import { toast } from "react-toastify"
+
 
 const Login = () => {
   const [passView, setPassView] = useState(false)
@@ -16,8 +17,8 @@ const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null)
   const passRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState('')
-  const { data } = useSession()
   const { push } = useRouter()
+  const [isLoading, setIsloading] = useState(false)
 
   const [user, setUser] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -57,6 +58,7 @@ const Login = () => {
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
+    setIsloading(true)
     const userData = { email, password }
     try {
       if (isRemember && email && password) {
@@ -72,12 +74,13 @@ const Login = () => {
         if (result?.error) {
           setError(result.error)
           toast.error('Login Failed!, Please check your crendentials!', { autoClose: 1500 })
+          setIsloading(false)
         } else {
+          setIsloading(false)
           toast.success('Login Succesfull, you will be redirected to Home', { autoClose: 1500 })
-          setTimeout(()=>{
+          setTimeout(() => {
             push('/')
           }, 1800)
-
         }
       } catch (err) {
         setError('An unexpected error occurred. Please try again.')
@@ -85,6 +88,26 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const handleLoginGoogle = async (e: any) => {
+    e.preventDefault()
+    try {
+      const result = await signIn('google', {
+        redirect: false,
+        callbackUrl: '/'
+      })
+
+      if (result?.error) {
+        setError(result.error)
+        toast.error('Login Failed!, Please check your crendentials!', { autoClose: 1500 })
+      } else {
+        toast.success('Login Succesfull, you will be redirected to Home', { autoClose: 1500 })
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.')
+      console.error('Login error:', err)
     }
   }
 
@@ -117,7 +140,7 @@ const Login = () => {
                   )}
                 </button>
               </div>
-              <button className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary hover:bg-background hover:text-primary transition-all duration-200" type="submit">LOGIN</button>
+              <button className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary hover:bg-background hover:text-primary transition-all duration-200" type="submit">{isLoading ? 'Loading...' : 'LOGIN'}</button>
               <div className="flex items-center w-full justify-between">
                 <div className="flex items-center gap-2">
                   <input type="checkbox" className="flex justify-center" onChange={handleIsRemember} />
@@ -133,7 +156,7 @@ const Login = () => {
                 <div className="bg-primary w-full h-[1px]"></div>
               </div>
 
-              <button className="p-2 w-full border-2 bg-primary text-background hover:bg-background hover:text-textColor border-primary rounded-full flex justify-center items-center gap-5 transition-all duration-300" onMouseOver={() => setHoverLogo(true)} onMouseOut={() => setHoverLogo(false)} id="googleBtn" name="loginBtnGoogle">
+              <button className="p-2 w-full border-2 bg-primary text-background hover:bg-background hover:text-textColor border-primary rounded-full flex justify-center items-center gap-5 transition-all duration-300" onMouseOver={() => setHoverLogo(true)} onMouseOut={() => setHoverLogo(false)} id="googleBtn" name="loginBtnGoogle" onClick={handleLoginGoogle}>
                 <GoogleLogo weight="bold" size={32} color={hoverLogo ? '#1b1b1b' : "#f9f7f7"} />
                 <p className="font-semibold text-lg">Continue with Google</p>
               </button>

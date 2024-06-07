@@ -1,11 +1,52 @@
 import { EnvelopeSimple, Eye, EyeSlash, GoogleLogo, Key, User } from "@phosphor-icons/react"
 import Head from "next/head"
 import Link from "next/link"
-import { useState } from "react"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 const Register = () => {
   const [passView, setPassView] = useState(false)
   const [hoverLogo, setHoverLogo] = useState(false)
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [isPassConfrimed, setIsPassConfirmed] = useState(false)
+  const [isLoading, setIsloading] = useState(false)
+  const {push} = useRouter()
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    setIsloading(true)
+    const data = { username, email, password, brithday: "", phone: "", image: "", type: 'credentials' }
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+    if (res.status === 200) {
+      setIsloading(false)
+      toast.success('Register Success! redirected to login page', {autoClose: 1500})
+      setTimeout(()=>{
+        push('/auth/login')
+      }, 1800)
+    } else if (res.status === 400) {
+      toast.error('Sorry your email has been registered, please change an email address', {autoClose: 1500})
+      setIsloading(false)
+    } else {
+      toast.error('Method not Allowed!', {autoClose: 1500})
+      setIsloading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (password === confirmPassword) {
+      setIsPassConfirmed(true)
+    } else {
+      setIsPassConfirmed(false)
+    }
+  }, [password, confirmPassword])
 
   return (
     <>
@@ -20,18 +61,18 @@ const Register = () => {
             <div className="flex w-full flex-col gap-2">
               <h1 className="text-4xl w-full text-start leading-snug font-bold">Ready to be part of us? <span className="text-accent">Register for free!</span></h1>
             </div>
-            <form className="w-full flex-col flex gap-5 items-center" onSubmit={(e) => e.preventDefault()}>
+            <form className="w-full flex-col flex gap-5 items-center" onSubmit={handleSubmit}>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <User size={32} color="#1b1b1b" weight="fill" />
-                <input type="text" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Username" />
+                <input onChange={(e) => setUsername(e.target.value)} type="text" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Username" />
               </div>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <EnvelopeSimple size={32} color="#1b1b1b" weight="fill" />
-                <input type="email" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Email" />
+                <input onChange={(e) => setEmail(e.target.value)} type="email" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Email" />
               </div>
-              <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
+              <div className={`w-full p-2 flex items-center gap-2 border-2 ${isPassConfrimed ? 'border-primary/60' : 'border-red-500'} rounded-md`}>
                 <Key size={32} color="#1b1b1b" weight="fill" />
-                <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Password" />
+                <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                 <button onClick={() => setPassView(!passView)} name="viewPassword" id="viewPassword">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
@@ -40,9 +81,9 @@ const Register = () => {
                   )}
                 </button>
               </div>
-              <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
+              <div className={`w-full p-2 flex items-center gap-2 border-2 ${isPassConfrimed ? 'border-primary/60' : 'border-red-500'} rounded-md`}>
                 <Key size={32} color="#1b1b1b" weight="fill" />
-                <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Confirm Password" />
+                <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} />
                 <button onClick={() => setPassView(!passView)} name="viewConfPassword" id="viewConfPassword">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
@@ -51,8 +92,8 @@ const Register = () => {
                   )}
                 </button>
               </div>
-              <button className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary hover:bg-background hover:text-primary transition-all duration-200" type="submit">SIGN UP</button>
-              
+              <button className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary hover:bg-background hover:text-primary transition-all duration-200" type="submit">{isLoading ? 'Loading....' : 'SIGN UP'}</button>
+
             </form>
             <div className="flex flex-col gap-5 items-center w-full">
               <div className="flex w-full justify-between gap-5 items-center">

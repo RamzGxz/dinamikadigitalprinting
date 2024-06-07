@@ -1,5 +1,5 @@
 import ProductCard from "@/components/cards/productCard"
-import { productTypes } from "@/components/types/productTypes"
+import { productTypes } from "@/types/productTypes"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 

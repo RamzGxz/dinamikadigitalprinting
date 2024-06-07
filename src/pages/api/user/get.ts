@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import retriveData from '../../../utils/db/service'
+import { retrieveData } from '@/utils/db/service'
 
 
-const hander = async ( req: NextApiRequest, res: NextApiResponse) => {
+const hander = async (req: NextApiRequest, res: NextApiResponse) => {
 
-  const data = await retriveData('user')
+  const data = await retrieveData('user')
 
-  return(
+  return (
     res.status(200).json({
       status: `Done!`,
       data

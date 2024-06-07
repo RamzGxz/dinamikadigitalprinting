@@ -15,7 +15,7 @@ const ServiceCard = ({ icon, title, description }: serviceCardType) => {
       {icon}
       <p className="font-bold text-xl">{title}</p>
       <p className="text-center">{description}</p>
-      <Link href={'/'} className="text-accent hover:text-textColor font-medium text-sm flex items-center gap-1">
+      <Link href={`/services/${title.toString().toLowerCase().replace(/ /g, '-')}`} className="text-accent hover:text-textColor font-medium text-sm flex items-center gap-1">
         Learn more
         <ArrowRight weight="bold"/>
       </Link>

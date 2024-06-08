@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 
 
@@ -6,7 +5,7 @@ function StorySection() {
   return (
     <div className="flex items-center py-16 justify-between w-full gap-5 h-screen" id="story">
       <div className="w-1/2 lg:block hidden">
-        <Image src={'/undraw_empty_street_re_atjq.svg'} alt="None" width={480} height={480} />
+        <img src={'/undraw_empty_street_re_atjq.svg'} alt="None" width={480} height={480} className="w-auto h-auto" />
       </div>
       <div className="lg:w-1/2 w-full flex flex-col gap-5 items-start">
         <div className="px-5 py-2 rounded-full border-2 border-primary flex gap-2 items-center">
@@ -17,16 +16,16 @@ function StorySection() {
         <p className="font-medium">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam itaque, maxime quibusdam amet sunt autem temporibus adipisci dicta iusto illum consectetur cupiditate <span className="text-accent">vero sint optio sapiente incidunt, expedita aperiam. Inventore?</span></p>
         <div className="w-full grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2">
           <div className="w-full">
-            <Image src={'/str2.jpg'} alt="" className="rounded-md" width={500} height={500} fetchPriority="high" />
+            <img src={'/str2.jpg'} alt="" className="rounded-md w-auto h-auto" width={500} height={500} />
           </div>
           <div className="w-full">
-            <Image src={'/str1.jpg'} alt="" className="rounded-md" width={500} height={500} fetchPriority="high" />
+            <img src={'/str1.jpg'} alt="" className="rounded-md w-auto h-auto" width={500} height={500} />
           </div>
           <div className="w-full">
-            <Image src={'/str3.jpg'} alt="" className="rounded-md" width={500} height={500} fetchPriority="high" />
+            <img src={'/str3.jpg'} alt="" className="rounded-md w-auto h-auto" width={500} height={500} />
           </div>
           <div className="w-full">
-            <Image src={'/str5.jpg'} alt="" className="rounded-md" width={500} height={500} fetchPriority="high" />
+            <img src={'/str5.jpg'} alt="" className="rounded-md w-auto h-auto" width={500} height={500} />
           </div>
         </div>
       </div>

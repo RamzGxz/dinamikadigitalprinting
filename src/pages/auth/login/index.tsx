@@ -176,7 +176,7 @@ const Login = () => {
           </div>
 
           <div className="w-1/2 lg:flex hidden justify-end">
-            <Image src={'/bglogin.webp'} width={410} height={400} alt="login backgorund" fetchPriority="high" className="rounded-r-lg" />
+            <Image src={'/bglogin.webp'} width={410} height={400} alt="login backgorund" className="rounded-r-lg w-auto h-auto" />
           </div>
 
         </div>

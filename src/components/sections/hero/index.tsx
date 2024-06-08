@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link";
 import Typewriter from 'typewriter-effect';
 
@@ -6,7 +5,7 @@ const HeroSection = () => {
   return (
     <div className="flex lg:justify-between justify-center items-center w-full h-screen pt-5 gap-5 flex-row-reverse">
       <div className="w-1/2 lg:flex hidden justify-center items-center">
-        <Image src={'/undraw_interview_re_e5jn.svg'} width={500} height={500} alt="hero image" fetchPriority="high" />
+        <img src={'/undraw_interview_re_e5jn.svg'} width={500} height={500} alt="hero image" className="w-auto h-auto" />
       </div>
       <div className="lg:w-1/2 w-full flex items-start flex-col gap-6 lg:text-left text-center">
         <h1 className="text-5xl leading-snug font-black -z-10 ">

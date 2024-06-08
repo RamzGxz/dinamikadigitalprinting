@@ -1,5 +1,5 @@
 import Loading from "@/components/loader/loading"
-import { EnvelopeSimple, Eye, EyeSlash, GoogleLogo, Key, User } from "@phosphor-icons/react"
+import { EnvelopeSimple, Eye, EyeSlash, Key, User } from "@phosphor-icons/react"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -8,10 +8,11 @@ import { toast } from "react-toastify"
 
 const Register = () => {
   const [passView, setPassView] = useState(false)
-  const [hoverLogo, setHoverLogo] = useState(false)
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [brithday, setBirthday] = useState('')
+  const [phone, setPhone] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isPassConfrimed, setIsPassConfirmed] = useState(false)
   const [isLoading, setIsloading] = useState(false)
@@ -70,7 +71,7 @@ const Register = () => {
             <form className="w-full flex-col flex gap-5 items-center" onSubmit={handleSubmit}>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <User size={32} color="#1b1b1b" weight="fill" />
-                <input onChange={(e) => setUsername(e.target.value)} type="text" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Fullname" />
+                <input onChange={(e) => setUsername(e.target.value)} type="text" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Full Name" />
               </div>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <EnvelopeSimple size={32} color="#1b1b1b" weight="fill" />

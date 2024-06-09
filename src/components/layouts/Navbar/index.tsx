@@ -54,6 +54,9 @@ const Navbar = () => {
                     <Link href={"/#services"} onClick={() => setMenuView(!menuView)} className="font-bold">Services</Link>
                   </li>
                   <li>
+                    <Link href={"/#maps"} onClick={() => setMenuView(!menuView)} className="font-bold">Maps</Link>
+                  </li>
+                  <li>
                     <Link href={'/product'} className="font-medium hover:text-accent transition-all duration-300 flex items-center gap-1">
                       Products
                       <ArrowSquareUpRight size={22} weight="light" color="#1b1b1b" />
@@ -70,6 +73,7 @@ const Navbar = () => {
               <Link href={'/'} className="font-medium hover:text-accent transition-all duration-300 ">Home</Link>
               <Link href={'/#story'} className="font-medium hover:text-accent transition-all duration-300">Story</Link>
               <Link href={'/#services'} className="font-medium hover:text-accent transition-all duration-300">Services</Link>
+              <Link href={'/#maps'} className="font-medium hover:text-accent transition-all duration-300">Maps</Link>
               <Link href={'/product'} className="font-medium hover:text-accent transition-all duration-300 flex items-center gap-1">
                 Products
                 <ArrowSquareUpRight size={22} weight="light" />

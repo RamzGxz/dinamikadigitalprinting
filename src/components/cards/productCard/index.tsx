@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 
-const ProductCard = ({ name, description, image, price }: productTypes) => {
+const ProductCard = ({ name, description, image, price, id }: productTypes) => {
   const { data } = useSession()
   const { push } = useRouter()
   const handleClick = () => {
@@ -15,7 +15,7 @@ const ProductCard = ({ name, description, image, price }: productTypes) => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-4 justify-between items-center p-5 rounded-md border shadow">
+    <div data-aos={`${id === 1? 'fade-up': id===2 ? 'fade-down': 'fade-up'}`} data-aos-duration={`${id === 1? '300': id===2 ? '400': '500'}`} data-aos-delay={`${id === 1? '': id===2 ? '500': '1000'}`} className="w-full flex flex-col gap-4 justify-between items-center p-5 rounded-md border shadow">
       <Image src={image} alt={name} width={200} height={100} className="w-auto h-auto" />
       <h1 className="font-bold text-4xl uppercase">{name}</h1>
       <p className="text-md text-center">{description}</p>

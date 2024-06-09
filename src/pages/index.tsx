@@ -6,8 +6,15 @@ import StorySection from '@/components/sections/story'
 import BestProducts from '@/components/sections/bestProducts'
 import Maps from '@/components/sections/maps'
 const inter = Inter({ subsets: ['latin'] })
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react'
 
 export default function Home() {
+  useEffect(()=>{
+    AOS.init();
+  }, [])
+
   return (
     <>
       <Head>

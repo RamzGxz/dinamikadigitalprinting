@@ -35,7 +35,7 @@ const BestProducts = () => {
         <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
           {data && data.map((item: productTypes, index) => {
             return (
-              <ProductCard name={item.name} description={item.description} image={item.image} price={item.price} key={index} />
+              <ProductCard id={index + 1} name={item.name} description={item.description} image={item.image} price={item.price} key={index} />
             )
           })}
         </div>

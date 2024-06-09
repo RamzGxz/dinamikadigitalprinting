@@ -1,13 +1,15 @@
-
+import storyAnimationData from '../../../../public/storyAnimationData.json'
+import Lottie from 'lottie-react';
 
 
 function StorySection() {
   return (
     <div className="flex items-center py-16 justify-between w-full gap-5 h-screen" id="story">
-      <div className="w-1/2 lg:block hidden">
-        <img src={'/undraw_empty_street_re_atjq.svg'} alt="None" width={480} height={480} className="w-auto h-auto" />
+      <div data-aos="fade-up" data-aos-duration="1000" className="w-1/2 lg:block hidden">
+        {/* <img src={'/undraw_empty_street_re_atjq.svg'} alt="None" width={480} height={480} className="w-auto h-auto" /> */}
+        <Lottie animationData={storyAnimationData} className='w-full' color='#1b1b1b' alt='Story images'/>
       </div>
-      <div className="lg:w-1/2 w-full flex flex-col gap-5 items-start">
+      <div data-aos="fade-left" data-aos-duration="1000" className="lg:w-1/2 w-full flex flex-col gap-5 items-start">
         <div className="px-5 py-2 rounded-full border-2 border-primary flex gap-2 items-center">
           <div className="w-2 h-2 bg-primary rounded-full"></div>
           <p className="font-bold text-xs">Our Story</p>

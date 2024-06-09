@@ -1,4 +1,5 @@
-import { EnvelopeSimple, Eye, EyeSlash, GoogleLogo, Key, User } from "@phosphor-icons/react"
+import Loading from "@/components/loader/loading"
+import { EnvelopeSimple, Eye, EyeSlash, Key, User } from "@phosphor-icons/react"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -7,36 +8,42 @@ import { toast } from "react-toastify"
 
 const Register = () => {
   const [passView, setPassView] = useState(false)
-  const [hoverLogo, setHoverLogo] = useState(false)
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [brithday, setBirthday] = useState('')
+  const [phone, setPhone] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isPassConfrimed, setIsPassConfirmed] = useState(false)
   const [isLoading, setIsloading] = useState(false)
-  const {push} = useRouter()
+  const { push } = useRouter()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     setIsloading(true)
-    const data = { username, email, password, brithday: "", phone: "", image: "", type: 'credentials' }
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    })
-    if (res.status === 200) {
-      setIsloading(false)
-      toast.success('Register Success! redirected to login page', {autoClose: 1500})
-      setTimeout(()=>{
-        push('/auth/login')
-      }, 1800)
-    } else if (res.status === 400) {
-      toast.error('Sorry your email has been registered, please change an email address', {autoClose: 1500})
+    if (!username || !password || !email || !confirmPassword) {
+      toast.error('Please fill out all field!!!!', { autoClose: 1500 })
       setIsloading(false)
     } else {
-      toast.error('Method not Allowed!', {autoClose: 1500})
-      setIsloading(false)
+      const data = { username, email, password, brithday: "", phone: "", image: "", type: 'credentials' }
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      if (res.status === 200) {
+        setIsloading(false)
+        toast.success('Register Success! redirected to login page', { autoClose: 1500 })
+        setTimeout(() => {
+          push('/auth/login')
+        }, 1800)
+      } else if (res.status === 400) {
+        toast.error('Sorry your email has been registered, please change an email address', { autoClose: 1500 })
+        setIsloading(false)
+      } else {
+        toast.error('Method not Allowed!', { autoClose: 1500 })
+        setIsloading(false)
+      }
     }
   }
 
@@ -59,12 +66,12 @@ const Register = () => {
 
           <div className="lg:w-1/2 w-full flex items-center justify-center flex-col gap-10 lg:px-10 px-6">
             <div className="flex w-full flex-col gap-2">
-              <h1 className="text-4xl w-full text-start leading-snug font-bold">Ready to be part of us? <span className="text-accent">Register for free!</span></h1>
+              <h1 className="text-4xl w-full lg:text-start text-center leading-snug font-bold">Ready to be part of us? <span className="text-accent">Register for free!</span></h1>
             </div>
             <form className="w-full flex-col flex gap-5 items-center" onSubmit={handleSubmit}>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <User size={32} color="#1b1b1b" weight="fill" />
-                <input onChange={(e) => setUsername(e.target.value)} type="text" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Username" />
+                <input onChange={(e) => setUsername(e.target.value)} type="text" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Full Name" />
               </div>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <EnvelopeSimple size={32} color="#1b1b1b" weight="fill" />
@@ -92,22 +99,13 @@ const Register = () => {
                   )}
                 </button>
               </div>
-              <button className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary hover:bg-background hover:text-primary transition-all duration-200" type="submit">{isLoading ? 'Loading....' : 'SIGN UP'}</button>
-
+              <button disabled={isLoading} className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary disabled:bg-primary/50 disabled:border-primary/0 hover:bg-background hover:text-primary transition-all duration-300" type="submit">{isLoading ? (
+                <div className="flex gap-2 items-center w-full justify-center">
+                  <Loading />
+                  Loading...
+                </div>
+              ) : 'REGISTER'}</button>
             </form>
-            <div className="flex flex-col gap-5 items-center w-full">
-              <div className="flex w-full justify-between gap-5 items-center">
-                <div className="bg-primary w-full h-[1px]"></div>
-                <p className="font-semibold p-1">OR</p>
-                <div className="bg-primary w-full h-[1px]"></div>
-              </div>
-
-              <button className="p-2 w-full border-2 bg-primary text-background hover:bg-background hover:text-textColor border-primary rounded-full flex justify-center items-center gap-5 transition-all duration-300" onMouseOver={() => setHoverLogo(true)} onMouseOut={() => setHoverLogo(false)} id="regGoogle" name="registerBtn">
-                <GoogleLogo weight="bold" size={32} color={hoverLogo ? '#1b1b1b' : "#f9f7f7"} />
-                <p className="font-semibold text-lg">Register with Google</p>
-              </button>
-            </div>
-
             <div className="flex justify-center items-center w-full text-sm">
               Sudah Punya Akun? klik&nbsp;<Link href={'/auth/login'} className="underline hover:font-black">disini</Link>&nbsp;untuk login
             </div>

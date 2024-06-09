@@ -54,6 +54,9 @@ const Navbar = () => {
                     <Link href={"/#services"} onClick={() => setMenuView(!menuView)} className="font-bold">Services</Link>
                   </li>
                   <li>
+                    <Link href={"/#maps"} onClick={() => setMenuView(!menuView)} className="font-bold">Maps</Link>
+                  </li>
+                  <li>
                     <Link href={'/product'} className="font-medium hover:text-accent transition-all duration-300 flex items-center gap-1">
                       Products
                       <ArrowSquareUpRight size={22} weight="light" color="#1b1b1b" />
@@ -70,20 +73,21 @@ const Navbar = () => {
               <Link href={'/'} className="font-medium hover:text-accent transition-all duration-300 ">Home</Link>
               <Link href={'/#story'} className="font-medium hover:text-accent transition-all duration-300">Story</Link>
               <Link href={'/#services'} className="font-medium hover:text-accent transition-all duration-300">Services</Link>
+              <Link href={'/#maps'} className="font-medium hover:text-accent transition-all duration-300">Maps</Link>
               <Link href={'/product'} className="font-medium hover:text-accent transition-all duration-300 flex items-center gap-1">
                 Products
                 <ArrowSquareUpRight size={22} weight="light" />
               </Link>
+              {/* {session?.user && <button className="relative">
+                <div className="rounded-full p-1 text-background absolute top-0 right-0 bg-green-800 flex justify-center items-center text-xs"></div>
+                <Bell size={20} color="#1b1b1b" weight="bold" />
+              </button>} */}
+            </div>
+            <div className="flex items-center gap-5">
               {session?.user && <button className="relative">
                 <div className="rounded-full p-1 text-background absolute top-0 right-0 bg-green-800 flex justify-center items-center text-xs"></div>
                 <Bell size={20} color="#1b1b1b" weight="bold" />
               </button>}
-            </div>
-            <div className="flex items-center gap-5">
-              <button className="relative lg:hidden" id="notif" name="notifBtn" >
-                <div className="rounded-full p-1 text-background absolute top-0 right-0 bg-green-800 flex justify-center items-center text-xs"></div>
-                <Bell size={20} color="#1b1b1b" weight="bold" />
-              </button>
               {session?.user ? (
                 <div className="flex items-center gap-1 rounded-md border-primary relative z-50 cursor-pointer" onMouseOver={() => setDetailView(true)} onMouseLeave={() => setDetailView(false)} onClick={() => setDetailView(!detailView)}>
                   {/* if wanna add images */}
@@ -93,7 +97,7 @@ const Navbar = () => {
                     <UserCircle size={20} color="#1b1b1" weight="fill" />
                   )}
 
-                  <div className={`${detailView ? '' : 'hidden'} absolute top-[30px] border border-t-0 lg:-left-5 -left-24 px-3 py-3 rounded-md flex flex-col items-start gap-1 bg-background`} onMouseOver={() => setDetailView(true)} onMouseLeave={() => setDetailView(false)}>
+                  <div className={`${detailView ? '' : 'hidden'} absolute ${session?.user.image? 'top-[30px]': 'top-[18px]'} border border-t-0 lg:-left-5 -left-24 px-3 py-3 shadow-xl rounded-md flex flex-col items-start gap-1 bg-background`} onMouseOver={() => setDetailView(true)}>
                     <p className="font-semibold text-xs capitalize cursor-default">
                       {session && session.user ? session.user.username : ''}
                     </p>

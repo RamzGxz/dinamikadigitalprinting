@@ -5,13 +5,14 @@ import { ReactNode } from "react"
 type serviceCardType = {
   icon: ReactNode,
   title: string,
-  description: string
+  description: string,
+  id: number
 }
 
 
-const ServiceCard = ({ icon, title, description }: serviceCardType) => {
+const ServiceCard = ({ icon, title, description, id }: serviceCardType) => {
   return (
-    <div className="w-full border-2 border-primary rounded-md p-5 flex flex-col gap-3 items-center">
+    <div data-aos={`${id <=3 ? 'fade-left' : 'fade-right'}`} data-aos-duration='1500' className="w-full border-2 border-primary rounded-md p-5 flex flex-col gap-3 items-center">
       {icon}
       <p className="font-bold text-xl">{title}</p>
       <p className="text-center">{description}</p>

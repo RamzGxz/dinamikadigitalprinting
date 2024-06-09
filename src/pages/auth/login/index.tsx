@@ -1,3 +1,4 @@
+import Loading from "@/components/loader/loading"
 import { EnvelopeSimple, Eye, EyeSlash, GoogleLogo, Key } from "@phosphor-icons/react"
 import { signIn } from "next-auth/react"
 import Head from "next/head"
@@ -102,9 +103,10 @@ const Login = () => {
       if (result?.error) {
         setError(result.error)
         toast.error('Login Failed!, Please check your crendentials!', { autoClose: 1500 })
-      } else {
-        toast.success('Login Succesfull, you will be redirected to Home', { autoClose: 1500 })
       }
+      // else {
+      //   toast.success('Login Succesfull, you will be redirected to Home', { autoClose: 1500 })
+      // }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.')
       console.error('Login error:', err)
@@ -140,7 +142,12 @@ const Login = () => {
                   )}
                 </button>
               </div>
-              <button className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary hover:bg-background hover:text-primary transition-all duration-200" type="submit">{isLoading ? 'Loading...' : 'LOGIN'}</button>
+              <button disabled={isLoading} className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary disabled:bg-primary/50 disabled:border-primary/0 hover:bg-background hover:text-primary transition-all duration-200" type="submit">{isLoading ? (
+                <div className="flex gap-2 items-center w-full justify-center">
+                  <Loading/>
+                  Loading...
+                </div>
+              ) : 'LOGIN'}</button>
               <div className="flex items-center w-full justify-between">
                 <div className="flex items-center gap-2">
                   <input type="checkbox" className="flex justify-center" onChange={handleIsRemember} />
@@ -169,7 +176,7 @@ const Login = () => {
           </div>
 
           <div className="w-1/2 lg:flex hidden justify-end">
-            <Image src={'/bglogin.webp'} width={410} height={400} alt="login backgorund" fetchPriority="high" className="rounded-r-lg" />
+            <Image src={'/bglogin.webp'} width={410} height={400} alt="login backgorund" className="rounded-r-lg w-auto h-auto" />
           </div>
 
         </div>

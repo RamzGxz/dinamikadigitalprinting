@@ -32,19 +32,19 @@ const ServicesPage = () => {
       <Head>
         <title>Dinamika - {query.name?.toString().replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase())}</title>
       </Head>
-      <div className="h-screen w-full flex justify-between items-center text-black xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm mx-auto gap-16 lg:px-0 px-6">
+      <div className="w-full xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm mx-auto lg:px-0 px-6">
         {query.name === "photocopy" ? (
-          <PhotocopySection />
+          <PhotocopySection name={query.name} />
         ) : query.name === 'printing-services' ? (
-          <PrintingServicesSection />
+          <PrintingServicesSection name={query.name} />
         ) : query.name === 'dinamika-mart' ? (
-          <DinamikaMartSection />
+          <DinamikaMartSection name={query.name}  />
         ) : query.name === 'web-delopment' ? (
-          <WebDevelopmentSection />
+          <WebDevelopmentSection name={query.name}  />
         ) : query.name === 'android-app-delopment' ? (
-          <AdnroidDevelopmentSection />
+          <AdnroidDevelopmentSection name={query.name} />
         ) : query.name === 'design-services' ? (
-          <DesignServicesSection />
+          <DesignServicesSection name={query.name}  />
         ) : ''}
       </div>
     </>

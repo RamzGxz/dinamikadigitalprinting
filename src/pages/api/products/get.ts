@@ -4,19 +4,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const data = [
     {
       name: "photocopy",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "Perangkat yang digunakan untuk menduplikasi dokumen, laporan, dan bahan kertas lainnya.",
       image: "/fc.png",
       price: 300
     },
     {
       name: "print",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "printer multifungsi yang dapat mencetak, memindai, menyalin, dan mengirim faks.",
       image: "/printer.png",
       price: 1000
     },
     {
       name: "lamination",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      description: "Laminasi adalah proses yang melibatkan pemasukan dokumen atau barang lain ke dalam kantong plastik pelindung.",
       image: "/banner.png",
       price: 6000
     }

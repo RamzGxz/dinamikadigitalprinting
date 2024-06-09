@@ -1,4 +1,4 @@
-const AdnroidDevelopmentSection = () =>{
+const AdnroidDevelopmentSection = ({ name }: { name: string }) =>{
   return(
     <div></div>
   )

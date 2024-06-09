@@ -1,4 +1,4 @@
-const DinamikaMartSection = () =>{
+const DinamikaMartSection = ({ name }: { name: string }) =>{
   return(
     <div></div>
   )

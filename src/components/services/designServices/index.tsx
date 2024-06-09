@@ -1,4 +1,4 @@
-const DesignServicesSection = () =>{
+const DesignServicesSection = ({ name }: { name: string }) =>{
   return(
     <div></div>
   )

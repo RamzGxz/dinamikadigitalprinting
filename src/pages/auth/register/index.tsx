@@ -36,7 +36,7 @@ const Register = () => {
         image: null,
         type: 'credentials'
       }
-      console.log(data)
+      // console.log(data)
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -52,6 +52,7 @@ const Register = () => {
         toast.error('Sorry your email has been registered, please change an email address', { autoClose: 3000 })
         setIsloading(false)
       } else {
+        console.log(res)
         toast.error('Method not Allowed!', { autoClose: 1500 })
         setIsloading(false)
       }

@@ -1,10 +1,10 @@
 import Loading from "@/components/loader/loading"
-import { Calendar, CalendarBlank, CaretDown, Database, EnvelopeSimple, Eye, EyeSlash, Key, Phone, User } from "@phosphor-icons/react"
+import { CalendarBlank, CaretDown, EnvelopeSimple, Eye, EyeSlash, Key, Phone, User } from "@phosphor-icons/react"
 import { GetServerSideProps } from "next"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { FormEvent, SyntheticEvent, useEffect, useRef, useState } from "react"
+import { SyntheticEvent, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 const Register = () => {
@@ -12,13 +12,13 @@ const Register = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [brithday, setBirthday] = useState('')
+  const [birthday, setBirthday] = useState('');
   const [phone, setPhone] = useState('+62')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isPassConfrimed, setIsPassConfirmed] = useState(false)
   const [isLoading, setIsloading] = useState(false)
   const [phoneId, setPhoneId] = useState('ID')
-  const [phoneCode, setPhoneCode] = useState('')
+  const [phoneCode, setPhoneCode] = useState('+62')
   const [phoneIDView, setPhoneIDView] = useState(false)
   const { push } = useRouter()
   const [searchValPhone, setSearhvalPhone] = useState([])
@@ -27,16 +27,17 @@ const Register = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     setIsloading(true)
-    if (!username || !phone || !brithday || !password || !email || !confirmPassword) {
+    if (!username || !phone || !birthday || !password || !email || !confirmPassword) {
       toast.error('Please fill out all field!!!!', { autoClose: 1500 })
       setIsloading(false)
     } else {
       const data = {
-        username, email, password, brithday,
-        phone: `${phoneCode} ${phone}`,
+        username, email, password, birthday,
+        phone: `${phoneCode}${phone}`,
         image: null,
         type: 'credentials'
       }
+      console.log(data)
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -148,12 +149,14 @@ const Register = () => {
                     })}
                   </div>
                 </div>
-                <p>{phoneCode ? phoneCode : '+62'}</p>
+                <p>{phoneCode}</p>
                 <input onChange={(e) => setPhone(e.target.value)} type="text" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="eg: 12345xxxx" />
               </div>
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <CalendarBlank size={32} color="#1b1b1b" weight="fill" />
                 <input onChange={(e) => setBirthday(e.target.value)} type="date" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Birthday" />
+                {/* <DatePickerComponent placeholder="Brithday" onChange={handleDateChange} /> */}
+
               </div>
               <div className={`w-full p-2 flex items-center gap-2 border-2 ${isPassConfrimed ? 'border-primary/60' : 'border-red-500'} rounded-md`}>
                 <Key size={32} color="#1b1b1b" weight="fill" />

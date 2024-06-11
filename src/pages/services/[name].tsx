@@ -25,7 +25,7 @@ const ServicesPage = () => {
       
       push("/404");
     }
-  }, [query.name, push]);
+  }, [query.name]);
 
   return (
     <>
@@ -39,7 +39,7 @@ const ServicesPage = () => {
           <PrintingServicesSection name={query.name} />
         ) : query.name === 'dinamika-mart' ? (
           <DinamikaMartSection name={query.name}  />
-        ) : query.name === 'web-delopment' ? (
+        ) : query.name === 'web-development' ? (
           <WebDevelopmentSection name={query.name}  />
         ) : query.name === 'android-app-delopment' ? (
           <AdnroidDevelopmentSection name={query.name} />

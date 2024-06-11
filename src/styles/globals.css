@@ -16,3 +16,12 @@ html, body, *{
   background-color: #1b1b1b;
   border-radius: 100px;
 }
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}

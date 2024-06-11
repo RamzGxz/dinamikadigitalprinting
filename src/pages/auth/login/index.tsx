@@ -42,6 +42,8 @@ const Login = () => {
     if (user && emailRef.current && passRef.current) {
       emailRef.current.value = user.email
       passRef.current.value = user.password
+      setEmail(user.email)
+      setPassword(user.password)
     }
   }, [user])
 
@@ -118,6 +120,9 @@ const Login = () => {
     <>
       <Head>
         <title>Dinamika auth service - login</title>
+        <meta name='description' content='Dinamika Digital Printing Authentication page -Login' key={'desc'} />
+        <meta property='og:description' content='Dinamika Digital Printing Authentication page -Login' />
+        <meta property='og:description' content='Dinamika Digital Printing' />
       </Head>
       <main className="w-full bg-background text-textColor flex justify-center items-center h-screen">
         <div className="w-full max-w-screen-lg mx-auto lg:shadow-xl rounded-lg flex justify-between items-start">
@@ -144,7 +149,7 @@ const Login = () => {
               </div>
               <button disabled={isLoading} className="w-full p-2 bg-primary text-background rounded-md text-lg font-bold border-2 border-primary disabled:bg-primary/50 disabled:border-primary/0 hover:bg-background hover:text-primary transition-all duration-200" type="submit">{isLoading ? (
                 <div className="flex gap-2 items-center w-full justify-center">
-                  <Loading/>
+                  <Loading />
                   Loading...
                 </div>
               ) : 'LOGIN'}</button>
@@ -175,9 +180,7 @@ const Login = () => {
 
           </div>
 
-          <div className="w-1/2 lg:flex hidden justify-end">
-            <Image src={'/bglogin.webp'} width={410} height={400} alt="login backgorund" className="rounded-r-lg w-auto h-auto" />
-          </div>
+          <div className="w-1/2 lg:flex hidden justify-end bg-[url('/bglogin.webp')] h-[85vh] rounded-r-lg bg-cover bg-center"></div>
 
         </div>
 

@@ -1,6 +1,5 @@
 import Loading from "@/components/loader/loading"
-import { CalendarBlank, CaretDown, EnvelopeSimple, Eye, EyeSlash, Key, Phone, User } from "@phosphor-icons/react"
-import { GetServerSideProps } from "next"
+import { CalendarBlank, CaretDown, EnvelopeSimple, Eye, EyeSlash, Key, Phone, User } from "@phosphor-icons/react/dist/ssr"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -155,8 +154,6 @@ const Register = () => {
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <CalendarBlank size={32} color="#1b1b1b" weight="fill" />
                 <input onChange={(e) => setBirthday(e.target.value)} type="date" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Birthday" />
-                {/* <DatePickerComponent placeholder="Brithday" onChange={handleDateChange} /> */}
-
               </div>
               <div className={`w-full p-2 flex items-center gap-2 border-2 ${isPassConfrimed ? 'border-primary/60' : 'border-red-500'} rounded-md`}>
                 <Key size={32} color="#1b1b1b" weight="fill" />
@@ -201,29 +198,3 @@ const Register = () => {
 
 export default Register
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  try {
-    const res = await fetch('/api/phone/get', {
-      headers: {
-        'Authorization': 'Bearer your-secret-token', // Pastikan menggunakan token yang benar
-      },
-    });
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch');
-    }
-
-    const result = await res.json();
-    return {
-      props: {
-        data: result.data,
-      },
-    };
-  } catch (error: any) {
-    return {
-      props: {
-        error: error.message,
-      },
-    };
-  }
-};

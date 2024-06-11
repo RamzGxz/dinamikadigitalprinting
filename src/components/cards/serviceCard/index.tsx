@@ -6,13 +6,14 @@ type serviceCardType = {
   icon: ReactNode,
   title: string,
   description: string,
-  id: number
+  id: number,
+  delay: number
 }
 
 
-const ServiceCard = ({ icon, title, description, id }: serviceCardType) => {
+const ServiceCard = ({ icon, title, description, id, delay }: serviceCardType) => {
   return (
-    <div data-aos={`${id <=3 ? 'fade-left' : 'fade-right'}`} data-aos-duration='1500' className="w-full border-2 border-primary rounded-md p-5 flex flex-col gap-3 items-center">
+    <div data-aos={`zoom-in`} data-aos-duration='1000' data-aos-delay={`${delay}`} className="w-full border-2 border-primary rounded-md p-5 flex flex-col gap-3 items-center">
       {icon}
       <p className="font-bold text-xl">{title}</p>
       <p className="text-center">{description}</p>

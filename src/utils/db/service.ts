@@ -19,7 +19,7 @@ export async function retrieveData(name: string) {
 }
 
 // Function to register a new user
-export async function register(userData: { username: string, email: string, password: string, birthday: string, phone: string }, callback: Function) {
+export async function register(userData: { username: string, email: string, password: string, birthday: string, phone: string, image: string, type: string }, callback: Function) {
   try {
     // Query Firestore for existing user with the same email
     const q = query(collection(firestore, 'user'), where("email", "==", userData.email))
@@ -33,14 +33,15 @@ export async function register(userData: { username: string, email: string, pass
         password: docData.password,
         birthday: docData.birthday,
         username: docData.username,
-        phone: docData.phone
+        phone: docData.phone,
+        image: docData.image,
+        type: docData.type
       } as User;
     })
 
     // Check if email already exists
     if (data.length > 0) {
       callback({ status: false, message: "email exists" })
-      console.log(data)
     } else {
       // Hash the user's password
       userData.password = await bcrypt.hash(userData.password, 16)
@@ -50,7 +51,7 @@ export async function register(userData: { username: string, email: string, pass
       callback({ status: true, message: "success" })
     }
   } catch (error) {
-    // Type guard for error
+    console.log(error)
     if (error instanceof Error) {
       callback({
         status: false,

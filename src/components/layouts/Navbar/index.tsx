@@ -103,7 +103,10 @@ const Navbar = () => {
                     </p>
                     <p className="text-xs text-wrap cursor-default font-medium">{session?.user.email}</p>
                     <Link href={'/'} className="text-xs hover:font-bold font-medium">Profile</Link>
-                    <button id="btnSignOut" name="btnSignOut" className="text-xs text-red-500 hover:font-bold font-medium" onClick={() => signOut()}>Sign out</button>
+                    <button id="btnSignOut" name="btnSignOut" className="text-xs text-red-500 hover:font-bold font-medium" onClick={() => signOut({
+                      redirect:true,
+                      callbackUrl: '/auth/login'
+                    })}>Sign out</button>
                   </div>
                 </div>
               ) : (

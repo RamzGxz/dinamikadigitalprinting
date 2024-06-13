@@ -78,6 +78,7 @@ const Login = () => {
           setError(result.error)
           toast.error('Login Failed!, Please check your crendentials!', { autoClose: 1500 })
           setIsloading(false)
+          console.log(result)
         } else {
           setIsloading(false)
           toast.success('Login Succesfull, you will be redirected to Home', { autoClose: 1500 })
@@ -174,8 +175,11 @@ const Login = () => {
               </button>
             </div>
 
-            <div className="flex justify-center items-center w-full lg:text-sm text-xs">
-              Belum Punya Akun? klik&nbsp;<Link href={'/auth/register'} className="underline hover:font-black">disini</Link>&nbsp;puntuk melakukan registrasi
+            <div className="flex flex-col w-full gap-3 items-center justify-center">
+              <div className="flex justify-center items-center w-full lg:text-sm text-xs">
+                Belum Punya Akun? klik&nbsp;<Link href={'/auth/register'} className="underline hover:font-black">disini</Link>&nbsp;puntuk melakukan registrasi
+              </div>
+              <Link href={'/'} className="py-1 rounded-md  px-5 border border-primary bg-primary text-background hover:bg-background hover:text-textColor transition-all duration-300">Back</Link>
             </div>
 
           </div>

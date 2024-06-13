@@ -33,7 +33,7 @@ const Register = () => {
       const data = {
         username, email, password, birthday,
         phone: `${phoneCode}${phone}`,
-        image: null,
+        image: "",
         type: 'credentials'
       }
       // console.log(data)
@@ -159,7 +159,7 @@ const Register = () => {
               <div className={`w-full p-2 flex items-center gap-2 border-2 ${isPassConfrimed ? 'border-primary/60' : 'border-red-500'} rounded-md`}>
                 <Key size={32} color="#1b1b1b" weight="fill" />
                 <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                <button onClick={() => setPassView(!passView)} name="viewPassword" id="viewPassword">
+                <button type="button" onClick={() => setPassView(!passView)} name="viewPassword" id="viewPassword">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
                   ) : (
@@ -170,7 +170,7 @@ const Register = () => {
               <div className={`w-full p-2 flex items-center gap-2 border-2 ${isPassConfrimed ? 'border-primary/60' : 'border-red-500'} rounded-md`}>
                 <Key size={32} color="#1b1b1b" weight="fill" />
                 <input type={passView ? "text" : "password"} className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} />
-                <button onClick={() => setPassView(!passView)} name="viewConfPassword" id="viewConfPassword">
+                <button type="button" onClick={() => setPassView(!passView)} name="viewConfPassword" id="viewConfPassword">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
                   ) : (

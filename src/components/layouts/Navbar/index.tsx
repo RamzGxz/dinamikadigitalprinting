@@ -1,18 +1,9 @@
-import { ArrowDown, ArrowSquareUpRight, Bell, CaretCircleDown, CaretDown, CaretUp, Heart, List, User, UserCircle, X } from "@phosphor-icons/react"
+import { ArrowSquareUpRight, Bell, Heart, List, UserCircle, X } from "@phosphor-icons/react"
 import { signOut, useSession } from "next-auth/react"
-import Image from "next/image"
 // import {} from "next-auth/react"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-interface userData {
-  id: string,
-  email: string,
-  password: string,
-  birthday: string,
-  username: string,
-  phone: string
-}
 
 const Navbar = () => {
   const [menuView, setMenuView] = useState(false)
@@ -99,7 +90,7 @@ const Navbar = () => {
 
                   <div className={`${detailView ? '' : 'hidden'} absolute ${session?.user.image? 'top-[30px]': 'top-[18px]'} border border-t-0 lg:-left-5 -left-24 px-3 py-3 shadow-xl rounded-md flex flex-col items-start gap-1 bg-background`} onMouseOver={() => setDetailView(true)}>
                     <p className="font-semibold text-xs capitalize cursor-default">
-                      {session && session.user ? session.user.username : ''}
+                      {session && session.user ? session.user.name : ''}
                     </p>
                     <p className="text-xs text-wrap cursor-default font-medium">{session?.user.email}</p>
                     <Link href={'/'} className="text-xs hover:font-bold font-medium">Profile</Link>

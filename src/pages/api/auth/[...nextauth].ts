@@ -1,9 +1,9 @@
-import { login, loginWithGoogle, retrieveData } from "@/utils/db/service";
-import { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from 'bcrypt'
-import GoogleProvider from 'next-auth/providers/google'
+import { NextAuthOptions } from 'next-auth';
+import NextAuth from 'next-auth/next';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
+import { compare } from 'bcrypt';
+import prisma from '@/utils/db/prisma';
 
 const authOptions: NextAuthOptions = {
   session: {
@@ -12,26 +12,37 @@ const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
-      type: 'credentials',
       name: 'Credentials',
       credentials: {
         email: { label: "Email", type: "text", placeholder: "Email Anda" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        const { email, password } = credentials as {
-          email: string,
-          password: string
+        if (!credentials) {
+          throw new Error('No credentials provided');
         }
 
-        const user: any = await login({ email })
-        if (user) {
-          const conf = await compare(password, user.password)
-          if (conf) {
-            return user
-          }
-        }
+        const { email, password } = credentials;
 
+        // Mencari pengguna berdasarkan email
+        const users = await prisma.user.findMany({
+          where: { email }
+        });
+
+        // Memeriksa apakah ada pengguna dengan email yang sama
+        if (users.length === 0) {
+          throw new Error('Invalid email or password');
+        }
+        
+        // Memeriksa password dengan menggunakan bcrypt
+        const user = users[0]; // Ambil pengguna pertama dari array
+        const passwordMatch = await compare(password, user.password);
+
+        if (passwordMatch) {
+          return { id: user.id, email: user.email, name: user.username };
+        } else {
+          throw new Error('Invalid email or password');
+        }
       }
     }),
     GoogleProvider({
@@ -47,50 +58,58 @@ const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async jwt({ token, account, user }: any) {
-      if (account?.provider === 'credentials') {
+    async jwt({ token, account, user }) {
+      if (account?.provider === 'credentials' && user) {
         token.id = user.id;
         token.email = user.email;
-        token.birthday = user.birthday;
-        token.username = user.username;
-        token.phone = user.phone;
+        token.name = user.name;
       }
 
       if (account?.provider === 'google') {
-        const data = {
-          username: user.name,
-          email: user.email,
-          image: user.image,
-          type: 'google',
-          phone: "",
-          birthday: "",
-          password: ""
+        // Mencari pengguna berdasarkan email
+        const existingUser = await prisma.user.findMany({
+          where: { email: user.email || '' }
+        });
+
+        if (existingUser.length > 0) {
+          const user = existingUser[0]; // Ambil pengguna pertama dari array
+          token.id = user.id;
+          token.name = user.username;
+        } else {
+          // Menyimpan pengguna baru ke dalam database
+          const newUser = await prisma.user.create({
+            data: {
+              email: user.email || '',
+              username: user.name || '',
+              image: user.image || '' ,
+              type: 'google',
+              phone: "",
+              birthday: "",
+              password: ""
+            }
+          });
+          token.id = newUser.id;
+          token.name = newUser.username;
         }
-
-        await loginWithGoogle(data, (result: any) => {
-          if (result.status) {
-            token.email = result.data.email;
-            token.birthday = result.data.birthday;
-            token.username = result.data.username;
-            token.phone = result.data.phone;
-          }
-        })
-
       }
+
       return token;
     },
-    async session({ session, token }: any) {
+    async session({ session, token }) {
       if (token) {
-        session.user = session.user || {};
-        session.user.id = token.id;
-        session.user.email = token.email;
-        session.user.birthday = token.birthday;
-        session.user.username = token.username || token.name;
-        session.user.phone = token.phone;
+        session.user = {
+          id: token.id,
+          email: token.email,
+          name: token.name,
+          phone: token.phone,
+          type: token.type,
+          birthday: token.birthday,
+        } as any
       }
+
       return session;
     }
   }
-}
+};
 
 export default NextAuth(authOptions);

@@ -9,6 +9,7 @@ const Navbar = () => {
   const [menuView, setMenuView] = useState(false)
   const { data: session, status }: any = useSession()
   const [detailView, setDetailView] = useState(false)
+  console.log(session)
 
 
   return (

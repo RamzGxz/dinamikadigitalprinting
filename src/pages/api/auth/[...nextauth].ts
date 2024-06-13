@@ -17,7 +17,7 @@ const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text", placeholder: "Email Anda" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials) {
+      async authorize(credentials: any) {
         if (!credentials) {
           throw new Error('No credentials provided');
         }
@@ -33,13 +33,13 @@ const authOptions: NextAuthOptions = {
         if (users.length === 0) {
           throw new Error('Invalid email or password');
         }
-        
+
         // Memeriksa password dengan menggunakan bcrypt
         const user = users[0]; // Ambil pengguna pertama dari array
         const passwordMatch = await compare(password, user.password);
 
         if (passwordMatch) {
-          return { id: user.id, email: user.email, name: user.username };
+          return user; // Return full user object
         } else {
           throw new Error('Invalid email or password');
         }
@@ -58,11 +58,17 @@ const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async jwt({ token, account, user }) {
+    async jwt({ token, account, user }: any) {
       if (account?.provider === 'credentials' && user) {
         token.id = user.id;
         token.email = user.email;
-        token.name = user.name;
+        token.name = user.username;
+        token.phone = user.phone;
+        token.type = user.type;
+        token.image = user.image;
+        token.birthday = user.birthday;
+        token.createdAt = user.createdAt;
+        token.updatedAt = user.updatedAt;
       }
 
       if (account?.provider === 'google') {
@@ -75,13 +81,20 @@ const authOptions: NextAuthOptions = {
           const user = existingUser[0]; // Ambil pengguna pertama dari array
           token.id = user.id;
           token.name = user.username;
+          token.email = user.email;
+          token.phone = user.phone;
+          token.type = user.type;
+          token.image = user.image;
+          token.birthday = user.birthday;
+          token.createdAt = user.createdAt;
+          token.updatedAt = user.updatedAt;
         } else {
           // Menyimpan pengguna baru ke dalam database
           const newUser = await prisma.user.create({
             data: {
               email: user.email || '',
               username: user.name || '',
-              image: user.image || '' ,
+              image: user.image || '',
               type: 'google',
               phone: "",
               birthday: "",
@@ -90,12 +103,19 @@ const authOptions: NextAuthOptions = {
           });
           token.id = newUser.id;
           token.name = newUser.username;
+          token.email = newUser.email;
+          token.phone = newUser.phone;
+          token.type = newUser.type;
+          token.image = newUser.image;
+          token.birthday = newUser.birthday;
+          token.createdAt = newUser.createdAt;
+          token.updatedAt = newUser.updatedAt;
         }
       }
 
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       if (token) {
         session.user = {
           id: token.id,
@@ -103,8 +123,11 @@ const authOptions: NextAuthOptions = {
           name: token.name,
           phone: token.phone,
           type: token.type,
+          image: token.image,
           birthday: token.birthday,
-        } as any
+          createdAt: token.createdAt,
+          updatedAt: token.updatedAt,
+        } as any;
       }
 
       return session;

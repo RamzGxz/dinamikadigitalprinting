@@ -184,7 +184,7 @@ const Login = () => {
 
           </div>
 
-          <div className="w-1/2 lg:flex hidden justify-end bg-[url('/bglogin.webp')] h-[85vh] rounded-r-lg bg-cover bg-center"></div>
+          <div className="w-1/2 lg:flex hidden justify-end bg-[url('/bglogin.webp')] h-[90vh] rounded-r-lg bg-cover bg-center"></div>
 
         </div>
 

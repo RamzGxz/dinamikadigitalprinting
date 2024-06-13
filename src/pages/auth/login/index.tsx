@@ -88,7 +88,7 @@ const Login = () => {
         }
       } catch (err) {
         setError('An unexpected error occurred. Please try again.')
-        console.error('Login error:', err)
+        console.log(err)
       }
     } catch (error) {
       console.log(error)

@@ -32,6 +32,7 @@
     "bcrypt": "^5.1.1",
     "firebase": "^10.12.2",
     "lottie-react": "^2.4.0",
+    "mongodb": "^6.7.0",
     "prisma": "^5.15.0",
     "react-toastify": "^10.0.5",
     "sqlite3": "^5.1.7",

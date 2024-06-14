@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method === 'POST') {
-      const { email, password, phone, type, image, username, birthday } = req.body;
+      const { email, password, phone, type, image, username, birthday, emailVerified } = req.body;
 
       // Memeriksa apakah email sudah ada
       const user = await prisma.user.findMany({
@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       // Menyimpan pengguna baru ke database dengan password yang di-hash
       await prisma.user.create({
-        data: { email, password: hashedPassword, phone, username, type, image, birthday }
+        data: { email, password: hashedPassword, phone, username, type, image, birthday, emailVerified: false }
       });
 
       res.status(200).json({ message: 'User created successfully' });

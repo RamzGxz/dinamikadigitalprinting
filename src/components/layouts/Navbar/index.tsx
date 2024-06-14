@@ -2,14 +2,51 @@ import { ArrowSquareUpRight, Bell, Heart, List, UserCircle, X } from "@phosphor-
 import { signOut, useSession } from "next-auth/react"
 // import {} from "next-auth/react"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 
 const Navbar = () => {
   const [menuView, setMenuView] = useState(false)
   const { data: session, status }: any = useSession()
   const [detailView, setDetailView] = useState(false)
-  console.log(session)
+  const [usersData, setUsersData]: any = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const data = await session?.user;
+      setUsersData(data);
+    };
+    fetchUserData();
+  }, [session]); // Fetch data only once when session changes
+
+  useEffect(() => {
+    if (usersData) {
+      passwordAlert();
+      emailVerifiedAlert();
+    }
+  }, [usersData]); // Run alert checks whenever usersData changes
+
+  const passwordAlert = async () => {
+    if (usersData?.type === 'google') {
+      toast.warning('Your Password is null, please add a password on profile settings', {
+        draggable: true,
+        autoClose: false,
+        position: 'top-right',
+      });
+    }
+  };
+
+  const emailVerifiedAlert = async () => {
+    if (usersData?.emailVerified === false) {
+      toast.warning('Your email is not verified! Please verify the email address', {
+        draggable: true,
+        autoClose: false,
+        position: 'top-right',
+      });
+    }
+  };
+
 
 
   return (
@@ -89,26 +126,34 @@ const Navbar = () => {
                     <UserCircle size={20} color="#1b1b1" weight="fill" />
                   )}
 
-                  <div className={`${detailView ? '' : 'hidden'} absolute ${session?.user.image? 'top-[30px]': 'top-[18px]'} border border-t-0 lg:-left-5 -left-24 px-3 py-3 shadow-xl rounded-md flex flex-col items-start gap-1 bg-background`} onMouseOver={() => setDetailView(true)}>
+                  <div className={`${detailView ? '' : 'hidden'} absolute ${session?.user.image ? 'top-[30px]' : 'top-[18px]'} border border-t-0 lg:-left-5 -left-24 px-3 py-3 shadow-xl rounded-md flex flex-col items-start gap-1 bg-background`} onMouseOver={() => setDetailView(true)}>
                     <p className="font-semibold text-xs capitalize cursor-default">
                       {session && session.user ? session.user.name : ''}
                     </p>
                     <p className="text-xs text-wrap cursor-default font-medium">{session?.user.email}</p>
                     <Link href={'/'} className="text-xs hover:font-bold font-medium">Profile</Link>
                     <button id="btnSignOut" name="btnSignOut" className="text-xs text-red-500 hover:font-bold font-medium" onClick={() => signOut({
-                      redirect:true,
+                      redirect: true,
                       callbackUrl: '/auth/login'
                     })}>Sign out</button>
                   </div>
                 </div>
               ) : (
                 <>
-                  <Link href={'/auth/login'}>
-                    <button id="linkLogin" name="linkLogin" className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-background hover:text-textColor transition-all duration-300 border border-primary">Login</button>
-                  </Link>
-                  <Link href={'/auth/register'}>
-                    <button id="linkReg" name="linkReg" className="px-3 py-1 rounded-md bg-background text-primary font-medium border-primary border hover:bg-primary hover:text-background transition-all duration-300">Sign up</button>
-                  </Link>
+                  <div className="lg:flex gap-5 hidden">
+                    <Link href={'/auth/login'}>
+                      <button id="linkLogin" name="linkLogin" className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-background hover:text-textColor transition-all duration-300 border border-primary">Login</button>
+                    </Link>
+                    <Link href={'/auth/register'}>
+                      <button id="linkReg" name="linkReg" className="px-3 py-1 rounded-md bg-background text-primary font-medium border-primary border hover:bg-primary hover:text-background transition-all duration-300">Sign up</button>
+                    </Link>
+                  </div>
+                  <div className="lg:hidden block">
+                    <Link href={'/auth/login'}>
+                      <button id="linkLogin" name="linkLogin" className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-background hover:text-textColor transition-all duration-300 border border-primary">Login or Sign up</button>
+                    </Link>
+                    
+                  </div>
                 </>
               )}
             </div>

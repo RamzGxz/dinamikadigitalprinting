@@ -69,6 +69,7 @@ const authOptions: NextAuthOptions = {
         token.birthday = user.birthday;
         token.createdAt = user.createdAt;
         token.updatedAt = user.updatedAt;
+        token.emailVerified = user.emailVerified
       }
 
       if (account?.provider === 'google') {
@@ -88,6 +89,7 @@ const authOptions: NextAuthOptions = {
           token.birthday = user.birthday;
           token.createdAt = user.createdAt;
           token.updatedAt = user.updatedAt;
+          token.emailVerified = user.emailVerified
         } else {
           // Menyimpan pengguna baru ke dalam database
           const newUser = await prisma.user.create({
@@ -98,7 +100,8 @@ const authOptions: NextAuthOptions = {
               type: 'google',
               phone: "",
               birthday: "",
-              password: ""
+              password: "",
+              emailVerified : true
             }
           });
           token.id = newUser.id;
@@ -110,6 +113,7 @@ const authOptions: NextAuthOptions = {
           token.birthday = newUser.birthday;
           token.createdAt = newUser.createdAt;
           token.updatedAt = newUser.updatedAt;
+          token.emailVerified = newUser.emailVerified
         }
       }
 
@@ -127,6 +131,7 @@ const authOptions: NextAuthOptions = {
           birthday: token.birthday,
           createdAt: token.createdAt,
           updatedAt: token.updatedAt,
+          emailVerified: token.emailVerified
         } as any;
       }
 

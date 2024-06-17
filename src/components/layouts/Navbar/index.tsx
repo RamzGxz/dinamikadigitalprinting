@@ -12,40 +12,40 @@ const Navbar = () => {
   const [detailView, setDetailView] = useState(false)
   const [usersData, setUsersData]: any = useState(null);
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     const data = await session?.user;
-  //     setUsersData(data);
-  //   };
-  //   fetchUserData();
-  // }, [session]); // Fetch data only once when session changes
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const data = await session?.user;
+      setUsersData(data);
+    };
+    fetchUserData();
+  }, [session]); // Fetch data only once when session changes
 
-  // useEffect(() => {
-  //   if (usersData) {
-  //     passwordAlert();
-  //     emailVerifiedAlert();
-  //   }
-  // }, [usersData]); // Run alert checks whenever usersData changes
+  useEffect(() => {
+    if (usersData) {
+      passwordAlert();
+      emailVerifiedAlert();
+    }
+  }, [usersData]); // Run alert checks whenever usersData changes
 
-  // const passwordAlert = async () => {
-  //   if (usersData?.type === 'google') {
-  //     toast.warning('Your Password is null, please add a password on profile settings', {
-  //       draggable: true,
-  //       autoClose: false,
-  //       position: 'top-right',
-  //     });
-  //   }
-  // };
+  const passwordAlert = async () => {
+    if (usersData?.type === 'google') {
+      toast.warning('Your Password is null, please add a password on profile settings', {
+        draggable: true,
+        autoClose: false,
+        position: 'top-right',
+      });
+    }
+  };
 
-  // const emailVerifiedAlert = async () => {
-  //   if (usersData?.emailVerified === false) {
-  //     toast.warning('Your email is not verified! Please verify the email address', {
-  //       draggable: true,
-  //       autoClose: false,
-  //       position: 'top-right',
-  //     });
-  //   }
-  // };
+  const emailVerifiedAlert = async () => {
+    if (usersData?.emailVerified === false) {
+      toast.warning('Your email is not verified! Please verify the email address', {
+        draggable: true,
+        autoClose: false,
+        position: 'top-right',
+      });
+    }
+  };
 
 
 
@@ -107,7 +107,7 @@ const Navbar = () => {
                 Products
                 <ArrowSquareUpRight size={22} weight="light" />
               </Link>
-              
+
             </div>
             <div className="flex items-center gap-5">
               {session?.user && <button className="relative">
@@ -149,7 +149,7 @@ const Navbar = () => {
                     <Link href={'/auth/login'}>
                       <button id="linkLogin" name="linkLogin" className="px-3 py-1 rounded-md bg-primary text-background font-medium hover:bg-background hover:text-textColor transition-all duration-300 border border-primary">Login or Sign up</button>
                     </Link>
-                    
+
                   </div>
                 </>
               )}

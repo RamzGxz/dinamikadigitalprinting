@@ -12,7 +12,7 @@ const AppShell = ({children}: AppShellProp) =>{
 
   const {pathname} = useRouter()
  
-  const path = ['/auth/login', '/auth/register', '/404']
+  const path = ['/auth/login', '/auth/register', '/404', '/profile/:name']
 
   return(
     <div>

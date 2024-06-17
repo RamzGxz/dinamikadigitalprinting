@@ -17,7 +17,6 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const emailRef = useRef<HTMLInputElement>(null)
   const passRef = useRef<HTMLInputElement>(null)
-  const [error, setError] = useState('')
   const { push } = useRouter()
   const [isLoading, setIsloading] = useState(false)
 
@@ -75,7 +74,6 @@ const Login = () => {
         })
 
         if (result?.error) {
-          setError(result.error)
           toast.error('Login Failed!, Please check your crendentials!', { autoClose: 1500 })
           setIsloading(false)
           console.log(result)
@@ -87,7 +85,6 @@ const Login = () => {
           }, 1800)
         }
       } catch (err) {
-        setError('An unexpected error occurred. Please try again.')
         console.log(err)
       }
     } catch (error) {
@@ -104,14 +101,12 @@ const Login = () => {
       })
 
       if (result?.error) {
-        setError(result.error)
         toast.error('Login Failed!, Please check your crendentials!', { autoClose: 1500 })
       }
       // else {
       //   toast.success('Login Succesfull, you will be redirected to Home', { autoClose: 1500 })
       // }
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.')
       console.error('Login error:', err)
     }
   }
@@ -140,7 +135,7 @@ const Login = () => {
               <div className="w-full p-2 flex items-center gap-2 border-2 border-primary/60 rounded-md">
                 <Key size={32} color="#1b1b1b" weight="fill" />
                 <input type={passView ? "text" : "password"} id="password" className="focus:outline-none bg-transparent w-full placeholder:text-accent" placeholder="Password" onChange={handleChangePassword} ref={passRef} />
-                <button onClick={() => setPassView(!passView)} id="viewPassword" name="view password">
+                <button type="button" onClick={() => setPassView(!passView)} id="viewPassword" name="view password">
                   {passView ? (
                     <Eye size={24} color="#1b1b1b" />
                   ) : (

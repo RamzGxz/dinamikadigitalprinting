@@ -159,7 +159,7 @@ const WebDevelopmentSection = ({ name }: { name: string }) => {
         </div>
       </div>
 
-      <div className="w-full flex flex-col gap-28 items-center py-28">
+      <div className="w-full flex flex-col gap-28 items-center py-28" id="portfolio">
         <h1 className="lg:text-5xl text-3xl text-center font-bold leading-snug italic">Apa yang sudah kami capai?</h1>
         <div className="w-full grid lg:grid-cols-3 grid-cols-2 lg:gap-16 gap-5">
           {portfolioData.map((item: portfolioType, index) => {

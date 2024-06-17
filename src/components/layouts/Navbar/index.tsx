@@ -12,40 +12,40 @@ const Navbar = () => {
   const [detailView, setDetailView] = useState(false)
   const [usersData, setUsersData]: any = useState(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const data = await session?.user;
-      setUsersData(data);
-    };
-    fetchUserData();
-  }, [session]); // Fetch data only once when session changes
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     const data = await session?.user;
+  //     setUsersData(data);
+  //   };
+  //   fetchUserData();
+  // }, [session]); // Fetch data only once when session changes
 
-  useEffect(() => {
-    if (usersData) {
-      passwordAlert();
-      emailVerifiedAlert();
-    }
-  }, [usersData]); // Run alert checks whenever usersData changes
+  // useEffect(() => {
+  //   if (usersData) {
+  //     passwordAlert();
+  //     emailVerifiedAlert();
+  //   }
+  // }, [usersData]); // Run alert checks whenever usersData changes
 
-  const passwordAlert = async () => {
-    if (usersData?.type === 'google') {
-      toast.warning('Your Password is null, please add a password on profile settings', {
-        draggable: true,
-        autoClose: false,
-        position: 'top-right',
-      });
-    }
-  };
+  // const passwordAlert = async () => {
+  //   if (usersData?.type === 'google') {
+  //     toast.warning('Your Password is null, please add a password on profile settings', {
+  //       draggable: true,
+  //       autoClose: false,
+  //       position: 'top-right',
+  //     });
+  //   }
+  // };
 
-  const emailVerifiedAlert = async () => {
-    if (usersData?.emailVerified === false) {
-      toast.warning('Your email is not verified! Please verify the email address', {
-        draggable: true,
-        autoClose: false,
-        position: 'top-right',
-      });
-    }
-  };
+  // const emailVerifiedAlert = async () => {
+  //   if (usersData?.emailVerified === false) {
+  //     toast.warning('Your email is not verified! Please verify the email address', {
+  //       draggable: true,
+  //       autoClose: false,
+  //       position: 'top-right',
+  //     });
+  //   }
+  // };
 
 
 

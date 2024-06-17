@@ -23,6 +23,9 @@
     "typescript": "5.4.5"
   },
   "devDependencies": {
+    "@nextui-org/pagination": "^2.0.33",
+    "@nextui-org/system": "^2.2.2",
+    "@nextui-org/theme": "^2.2.6",
     "@phosphor-icons/react": "^2.1.5",
     "@prisma/client": "^5.15.0",
     "@types/aos": "^3.0.7",
@@ -31,6 +34,7 @@
     "aos": "^3.0.0-beta.6",
     "bcrypt": "^5.1.1",
     "firebase": "^10.12.2",
+    "framer-motion": "^11.2.10",
     "lottie-react": "^2.4.0",
     "mongodb": "^6.7.0",
     "prisma": "^5.15.0",

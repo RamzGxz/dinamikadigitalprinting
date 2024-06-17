@@ -12,7 +12,7 @@ const HeroSection = () => {
         <Lottie animationData={heroAnimationData} className="w-full" />
       </div>
       <div data-aos="fade-right" data-aos-duration="1000" className="lg:w-1/2 w-full flex items-start flex-col gap-6 lg:text-left text-center">
-        <h1 className="text-5xl leading-snug font-black -z-10 ">
+        <h1 className="text-5xl leading-snug font-black">
           Percetakan Digital Terlengkap di
           <span className="text-secondary"><Typewriter options={{
             strings: ['Banyuwangi', 'Wringinrejo', 'Gambiran'],

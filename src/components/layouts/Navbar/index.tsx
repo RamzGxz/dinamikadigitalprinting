@@ -10,7 +10,7 @@ const Navbar = () => {
   const [menuView, setMenuView] = useState(false)
   const { data: session, status }: any = useSession()
   const [detailView, setDetailView] = useState(false)
-  const [usersData, setUsersData]: any = useState(null);
+  const [usersData, setUsersData]: any = useState(null)
 
   // useEffect(() => {
   //   const fetchUserData = async () => {

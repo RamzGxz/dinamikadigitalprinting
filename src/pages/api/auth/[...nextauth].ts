@@ -8,10 +8,10 @@ import prisma from '@/utils/db/prisma';
 const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
-    maxAge: 24 * 60 * 60
+    maxAge: 5 * 60 * 60 
   },
   jwt: {
-    maxAge: 24 * 60 * 60
+    maxAge: 5 * 60 * 60
   },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -74,6 +74,7 @@ const authOptions: NextAuthOptions = {
         token.createdAt = user.createdAt;
         token.updatedAt = user.updatedAt;
         token.emailVerified = user.emailVerified
+        token.orderList = user.orderList
       }
 
       if (account?.provider === 'google') {
@@ -94,6 +95,7 @@ const authOptions: NextAuthOptions = {
           token.createdAt = user.createdAt;
           token.updatedAt = user.updatedAt;
           token.emailVerified = user.emailVerified
+          token.orderList = user.orderList
         } else {
           // Menyimpan pengguna baru ke dalam database
           const newUser = await prisma.user.create({
@@ -105,7 +107,8 @@ const authOptions: NextAuthOptions = {
               phone: "",
               birthday: "",
               password: "",
-              emailVerified: true
+              emailVerified: true,
+              orderList: []
             }
           });
           token.id = newUser.id;
@@ -118,6 +121,7 @@ const authOptions: NextAuthOptions = {
           token.createdAt = newUser.createdAt;
           token.updatedAt = newUser.updatedAt;
           token.emailVerified = newUser.emailVerified
+          token.orderList = newUser.orderList
         }
       }
 
@@ -135,7 +139,8 @@ const authOptions: NextAuthOptions = {
           birthday: token.birthday,
           createdAt: token.createdAt,
           updatedAt: token.updatedAt,
-          emailVerified: token.emailVerified
+          emailVerified: token.emailVerified,
+          orderList: token.orderList
         } as any;
       }
 

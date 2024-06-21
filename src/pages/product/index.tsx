@@ -31,6 +31,8 @@ const Pages = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false)
   const [filters, setFilters] = useState<string[]>([])
+  let [qty, setQty] = useState(1)
+  const [orderList, setOrderList]: any = useState([])
 
   const shuffleArray = (array: Product[]): Product[] => {
     return array.sort(() => Math.random() - 0.5);
@@ -73,6 +75,15 @@ const Pages = () => {
     console.log(filters)
   };
 
+  const handlePushOrder = (_id: any, name: any, price: any, category: any, image: any) => {
+    const newOrderItem = { _id, name, price, category, quantity: qty, image }; // Ubah properti qty menjadi quantity
+    const updatedOrderList = [...orderList, newOrderItem]; // Tambahkan item baru ke dalam orderList
+
+    setOrderList(updatedOrderList); // Perbarui state orderList
+    localStorage.setItem('orderList', JSON.stringify(updatedOrderList)); // Simpan orderList ke dalam localStorage
+    console.log(updatedOrderList); // Cetak orderList yang diperbarui
+    console.log(newOrderItem); // Cetak item baru yang ditambahkan
+}
 
 
   return (
@@ -100,7 +111,7 @@ const Pages = () => {
             ) : (
               splittedData.length > 0 && splittedData[page - 1].map((item: Product, index) => {
                 return (
-                  <ListProdCard _id={item._id} category={item.category} image={item.image} price={item.price} name={item.name} quantity={item.quantity} key={index} />
+                  <ListProdCard _id={item._id} category={item.category} image={item.image} price={item.price} name={item.name} quantity={item.quantity} key={index} handlePushOrder={handlePushOrder} qty={qty} setQty={setQty} />
                 )
               })
             )}

@@ -1,21 +1,22 @@
+import { productTypes } from "@/types/productTypes";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/modal";
 import { Infinity, Minus, Plus } from "@phosphor-icons/react/dist/ssr";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 
-interface products {
-  _id: string,
-  name: string,
-  price: string,
-  quantity: number,
-  category: string,
-  image: string
-}
-
-
-const ModalListProd = ({ _id, name, price, quantity, category, image }: products) => {
+const ModalListProd = ({ _id, name, price, quantity, category, image, handlePushOrder, qty, setQty } : {_id: string, name: string, price: number, quantity: number, category: string, image: string, handlePushOrder: Function, qty:number, setQty: Function}) => {
+  const { data: session } = useSession()
+  const { push } = useRouter()
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  let [qty, setQty] = useState(1)
+  
+  const formatRupiah = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price)
 
   const handleMin = () => {
     if (qty <= 1) {
@@ -29,9 +30,17 @@ const ModalListProd = ({ _id, name, price, quantity, category, image }: products
   const handlePlus = () => {
     setQty(qty += 1)
   }
+
+  
   return (
     <>
-      <button onClick={onOpen} className="text-background border border-primary bg-primary w-full py-1 rounded-md mt-3 text-center text-xs hover:bg-background hover:text-textColor transition-all duration-300">Add To Cart</button>
+      <button onClick={() => {
+        if (session) {
+          onOpen()
+        } else {
+          push('/auth/login')
+        }
+      }} className="text-background border border-primary bg-primary w-full py-1 rounded-md mt-3 text-center text-xs hover:bg-background hover:text-textColor transition-all duration-300">Add To Cart</button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="sm" radius="sm" placement="center">
         <ModalContent className="light:bg-background text-textColor">
           {(onClose) => (
@@ -43,7 +52,7 @@ const ModalListProd = ({ _id, name, price, quantity, category, image }: products
                 }}></div>
                 <div className="flex flex-col gap-1">
                   <h1 className="italic font-bold text-xl capitalize">{name}</h1>
-                  <p className="italic">{price}</p>
+                  <p className="italic">{formatRupiah}</p>
                   <p className="italic capitalize">{category}</p>
                 </div>
                 <p className="absolute p-1 px-2 text-sm bg-accent top-0 right-5 rounded-md">
@@ -67,6 +76,7 @@ const ModalListProd = ({ _id, name, price, quantity, category, image }: products
                 <button onClick={() => {
                   setQty(1)
                   onClose()
+                  handlePushOrder(_id, name, price, category, image)
                 }} className="px-3 py-1 bg-primary border border-primary hover:bg-transparent hover:text-textColor transition-all duration-300 text-background rounded-md text-sm">
                   Order
                 </button>

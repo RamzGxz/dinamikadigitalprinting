@@ -31,7 +31,7 @@ const BestProducts = () => {
         <p className="text-center font-medium">Temukan produk terbaik untuk kamu</p>
       </div>
       <div className="flex flex-col gap-3">
-        <Link href={'/'} className="text-end text-sm text-accent font-medium hover:text-primary">See More {'->'}</Link>
+        <Link href={'/product'} className="text-end text-sm text-accent font-medium hover:text-primary">See More {'->'}</Link>
         <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
           {data && data.map((item: productTypes, index) => {
             return (

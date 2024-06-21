@@ -4,6 +4,7 @@ import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import { json } from "stream/consumers"
 
 
 const Navbar = () => {
@@ -11,14 +12,15 @@ const Navbar = () => {
   const { data: session, status }: any = useSession()
   const [detailView, setDetailView] = useState(false)
   const [usersData, setUsersData]: any = useState(null)
+  const [orderList, setOrderList]: any = useState([])
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     const data = await session?.user;
-  //     setUsersData(data);
-  //   };
-  //   fetchUserData();
-  // }, [session]); // Fetch data only once when session changes
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const data = await session?.user;
+      setUsersData(data);
+    };
+    fetchUserData();
+  }, [session]);
 
   // useEffect(() => {
   //   if (usersData) {
@@ -46,6 +48,28 @@ const Navbar = () => {
   //     });
   //   }
   // };
+
+  const getOrderList = async () => {
+    try {
+      if (usersData) {
+        const resp = await fetch(`/api/user/getListOrder?id=${usersData.id}`)
+        const data = await resp.json()
+        if (resp.status === 200 && data.orderList.length > 0) {
+          localStorage.setItem('orderList', JSON.stringify([...data.orderList]))
+          console.log(orderList)
+          const storedOrderList: any = localStorage.getItem('orderList');
+          setOrderList(JSON.parse(storedOrderList));
+          console.log(orderList)
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('an error ocurred!', { autoClose: 1500 })
+    }
+  }
+  useEffect(() => {
+    getOrderList()
+  }, [usersData])
 
 
 
@@ -86,7 +110,7 @@ const Navbar = () => {
                     <Link href={"/#maps"} onClick={() => setMenuView(!menuView)} className="font-bold">Maps</Link>
                   </li>
                   <li>
-                    <Link href={'/product'} className="font-medium hover:text-accent transition-all duration-300 flex items-center gap-1">
+                    <Link href={'/product'} onClick={() => setMenuView(!menuView)} className="font-medium hover:text-accent transition-all duration-300 flex items-center gap-1">
                       Products
                       <ArrowSquareUpRight size={22} weight="light" color="#1b1b1b" />
                     </Link>
@@ -111,7 +135,7 @@ const Navbar = () => {
             </div>
             <div className="flex items-center gap-5">
               {session?.user && <button className="relative">
-                <div className="rounded-full p-1 text-background absolute top-0 right-0 bg-green-800 flex justify-center items-center text-xs"></div>
+                {orderList.length > 0 && <div className="rounded-full p-1 text-background absolute top-0 right-0 bg-green-800 flex justify-center items-center text-xs"></div>}
                 <Bell size={20} color="#1b1b1b" weight="bold" />
               </button>}
               {session?.user ? (

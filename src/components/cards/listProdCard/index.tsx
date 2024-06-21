@@ -1,16 +1,8 @@
 import ModalListProd from "@/components/modals/modalListProd"
 
-interface products {
-  _id: string,
-  name: string,
-  price: number,
-  quantity: number,
-  category: string,
-  image: string
 
-}
 
-const ListProdCard = ({ _id, name, price, quantity, category, image }: products) => {
+const ListProdCard = ({ _id, name, price, quantity, category, image, handlePushOrder, qty, setQty } : {_id: string, name: string, price: number, quantity: number, category: string, image: string, handlePushOrder: Function, qty: number, setQty: Function}) => {
 
   const formatRupiah = new Intl.NumberFormat('id-ID', {
     style: 'currency',
@@ -28,7 +20,7 @@ const ListProdCard = ({ _id, name, price, quantity, category, image }: products)
       <p className="text-textColor/60 text-xs font-medium italic">{formatRupiah}</p>
       <p className="absolute px-3 py-1 bg-accent font-medium text-background rounded-md text-xs top-0 right-0 capitalize">{category}</p>
       {/* <button className="text-background border border-primary bg-primary w-full py-1 rounded-md mt-3 text-center text-xs hover:bg-background hover:text-textColor transition-all duration-300">Add To Cart</button> */}
-      <ModalListProd _id={_id} category={category} image={image} name={name} price={formatRupiah} quantity={quantity} key={_id} />
+      <ModalListProd _id={_id} category={category} image={image} name={name} price={price} quantity={quantity} key={_id} handlePushOrder={handlePushOrder} qty={qty} setQty={setQty} />
     </div>
   )
 }
